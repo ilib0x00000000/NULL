@@ -32,7 +32,7 @@ def  insert_num(img_url):
 	draw = ImageDraw.Draw(img)
 
 	ubuntu_font_url = "/usr/share/fonts/truetype/freefont/FreeSerifBoldItalic.ttf"
-																# ubuntu下的字体文件位置
+													# ubuntu下的字体文件位置
 	text_font = ImageFont.truetype(ubuntu_font_url, size=40)	# 字体设置
 	text_color = "#EE0000"										# 颜色取值
 
