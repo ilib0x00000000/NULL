@@ -54,11 +54,13 @@ def generate_tokens(text):
 
 class SimpleParser:
 	"""简单的数学表达式解析器
-	参数：
-		expre： 简单的数学表达式，只包含数字，括号和运算符
 	"""
 
 	def parse(self,text):
+		"""
+		参数：
+			expre： 简单的数学表达式，只包含数字，括号和运算符
+		"""
 		self._tokens = generate_tokens(text)
 		self.tok = None
 		self.nexttok = None
