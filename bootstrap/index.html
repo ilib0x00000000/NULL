@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--
+bootstrap:
+	1.CSS样式
+	2.CSS组件
+	3.JS插件
+
+CSS学习内容：
+	1.栅格系统
+	2.排版
+	3.代码
+	4.表格
+	5.表单
+	6.按钮
+	7.图片
+	8.响应式图片
+	9.工具
+
+bootstrap:文件的引入，必须在所有的js引入之前先引入 jquery.min.js，即：
+	<script type="" src="BootStrap3.0.3/js/jquery.min.js"></script>
+
+css样式必须有：
+	<link rel="stylesheet" type="text/css" href="BootStrap3.0.3/css/bootstrap.min.css">
+-->
+
+	<meta charset="utf-8" />
+	<title>bootstrap学习-CSS-栅格系统</title>
+	<link rel="stylesheet" type="text/css" href="BootStrap3.0.3/css/bootstrap.min.css">
+	<script type="" src="BootStrap3.0.3/js/jquery.min.js"></script>
+	<script type="" src="BootStrap3.0.3/js/bootstrap.min.js"></script>
+	<script type="" src="BootStrap3.0.3/js/datetimepicker.min.js"></script>
+	<script type="" src="BootStrap3.0.3/js/highlight.min.js"></script>
+	<script type="" src="BootStrap3.0.3/js/holder.min.js"></script>
+	<script type="" src="BootStrap3.0.3/js/application.js"></script>
+
+	<style type="text/css">
+		.col-md-12{
+			background: #ccc;	/*在bootsrtap中 如果不喜欢官方的样式，可以自定义样式*/
+		}
+
+		.row{
+			margin-bottom: 10px;
+		}
+	</style>	
+</head>
+
+<body>
+	<!--
+	CSS样式-栅格系统：
+		首先要定义一个类“container”，这是bootstrap中已经提前写好的样式
+	-->
+
+	<nav></nav>
+
+	<div class="container">
+
+		<div class="row">
+			<div class="col-md-3"><h2>关键字:container</h2></div>
+			<div class="col-md-6"><h2>关键字:col-md-n(n可变)</h2></div>
+			<div class="col-md-3"></div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<h3>bootstrap栅格系统</h3>
+				<p>栅格系统是指提前定义好的行布局，首先定义一个container，在container中，布不同的行，每个行中可以放不同的div。
+				每行默认可以放12个div。<br />
+				col-md-12：是指每个class会占据12个div，即1行。<br />
+				col-md-6:每个class会占据6个div <br />
+				col-md-4:每个class会占据4个div <br />
+				col-md-3:每个class会占据3个div <br />
+				col-md-2:每个class会占据2个div <br />
+				col-md-1:每个class会占据1个div</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<img src="holder.js/240x240" />
+			</div>
+			<div class="col-md-4">
+				<img src="holder.js/240x240" />
+			</div>
+			<div class="col-md-4">
+				<img src="holder.js/240x240" />
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<img src="holder.js/240x240" />
+			</div>
+			<div class="col-md-4">
+				<img src="holder.js/240x240" />
+			</div>
+			<div class="col-md-4">
+				<img src="holder.js/240x240" />
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-3"><img src="holder.js/180x180"></div>
+			<div class="col-md-3"><img src="holder.js/180x180"></div>
+			<div class="col-md-3"><img src="holder.js/180x180"></div>
+			<div class="col-md-3"><img src="holder.js/180x180"></div>
+		</div>
+	</div>
+
+	<footer></footer>
+</body>
+</html>
+
