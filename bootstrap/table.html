@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<!--
+bootstrap:
+	1.CSS样式
+	2.CSS组件
+	3.JS插件
+
+CSS学习内容：
+	1.栅格系统
+	2.排版
+	3.代码
+	4.表格
+	5.表单
+	6.按钮
+	7.图片
+	8.响应式图片
+	9.工具
+
+bootstrap:文件的引入，必须在所有的js引入之前先引入 jquery.min.js，即：
+	<script type="" src="BootStrap3.0.3/js/jquery.min.js"></script>
+
+css样式必须有：
+	<link rel="stylesheet" type="text/css" href="BootStrap3.0.3/css/bootstrap.min.css">
+-->
+
+	<meta charset="utf-8" />
+	<title>bootstrap学习-CSS-表格 </title>
+	<link rel="stylesheet" type="text/css" href="BootStrap3.0.3/css/bootstrap.min.css">
+	<script type="" src="BootStrap3.0.3/js/jquery.min.js"></script>
+	<script type="" src="BootStrap3.0.3/js/bootstrap.min.js"></script>
+	<script type="" src="BootStrap3.0.3/js/datetimepicker.min.js"></script>
+	<script type="" src="BootStrap3.0.3/js/highlight.min.js"></script>
+	<script type="" src="BootStrap3.0.3/js/holder.min.js"></script>
+	<script type="" src="BootStrap3.0.3/js/application.js"></script>
+
+	<style type="text/css">
+	</style>	
+</head>
+
+
+<body>
+
+	<div class="container">
+		<table class="table">
+			<!--
+			表格的样式：
+				table标签的.table 类可以为其赋予基本的样式 
+				条纹状表格： 	.table-striped 类 			隔行换色
+				带边框的表格： 	.table-bordered 类 			
+				鼠标悬停：		.table-hover 类 				鼠标停留上去的时候该行的颜色发生相应的变化
+				紧缩表格：		.table-condensed 类
+			-->
+			<tr class="active">
+				<!--行或者单元格的颜色设置:
+				颜色种类有：active success info warning danger-->
+				<th>第1列</th>
+				<th>第2列</th>
+				<th>第3列</th>
+				<th>第4列</th>
+			</tr>
+
+			<tr>
+				<td class="success">table-striped</td>
+				<td class="info">table-bordered</td>
+				<td class="warning">table-hover</td>
+				<td class="danger">table-condensed</td>
+			</tr>
+		</table>
+
+
+		<div class="table-responsive">
+			<!--响应式表格：
+			div应该设置类为 table-responsive
+			table标签必须包含在div中
+			-->
+			<table class="table table-striped table-bordered table-hover">
+				<tr>
+					<th>第1列</th>
+					<th>第2列</th>
+					<th>第3列</th>
+					<th>第4列</th>
+				</tr>
+
+				<tr>
+					<td>table-striped</td>
+					<td>table-bordered</td>
+					<td>table-hover</td>
+					<td>table-condensed</td>
+				</tr>
+
+				<tr>
+					<td>table-striped</td>
+					<td>table-bordered</td>
+					<td>table-hover</td>
+					<td>table-condensed</td>
+				</tr>
+			</table>		
+		</div>
+
+		
+		<table class="table table-striped table-bordered table-hover">
+			<tr>
+				<th>第1列</th>
+				<th>第2列</th>
+				<th>第3列</th>
+				<th>第4列</th>
+			</tr>
+
+			<tr>
+				<td>table-striped</td>
+				<td>table-bordered</td>
+				<td>table-hover</td>
+				<td>table-condensed</td>
+			</tr>
+
+			<tr>
+				<td>table-striped</td>
+				<td>table-bordered</td>
+				<td>table-hover</td>
+				<td>table-condensed</td>
+			</tr>
+		</table>
+	</div>
+
+</body>
+</html>
