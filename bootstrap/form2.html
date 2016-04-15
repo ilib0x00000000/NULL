@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<!--
+bootstrap:
+	1.CSS样式
+	2.CSS组件
+	3.JS插件
+CSS学习内容：
+	1.栅格系统
+	2.排版
+	3.代码
+	4.表格
+	5.表单
+	6.按钮
+	7.图片
+	8.响应式图片
+	9.工具
+bootstrap:文件的引入，必须在所有的js引入之前先引入 jquery.min.js，即：
+	<script type="" src="BootStrap3.0.3/js/jquery.min.js"></script>
+css样式必须有：
+	<link rel="stylesheet" type="text/css" href="BootStrap3.0.3/css/bootstrap.min.css">
+-->
+	<head>
+		<meta charset="utf-8" />
+		<title>bootstrap学习-CSS-form</title>
+		<link rel="stylesheet" type="text/css" href="BootStrap3.0.3/css/bootstrap.min.css">
+		<script type="text/javascript" src="BootStrap3.0.3/js/jquery.min.js"></script>
+		<script type="" src="BootStrap3.0.3/js/bootstrap.min.js"></script>
+		<script type="" src="BootStrap3.0.3/js/datetimepicker.min.js"></script>
+		<script type="" src="BootStrap3.0.3/js/highlight.min.js"></script>
+		<script type="" src="BootStrap3.0.3/js/holder.min.js"></script>
+		<script type="" src="BootStrap3.0.3/js/application.js"></script>
+	</head>
+
+
+	<body>
+		<div class="container">
+			<h1>经过BootStrap渲染过的普通表单</h1>
+			<form class="commer_form">
+				<div class="form-group">
+					<label>username</label>
+					<input type="text" class="form-control" placeholder="username"></input>
+				</div>
+
+				<div class="form-group">
+					<label>password</label>
+					<input type="password" class="form-control" placeholder="password"></input>
+				</div>
+
+				<div class="form-group">
+					<button type="submit" class="btn btn-default">submit</button>
+					<button type="submit" class="btn btn-primary">submit</button>
+				</div>
+			</form>
+
+			<br /><br /><hr />
+			<h1>内联表单,需要设置form的class为"form-inline"</h1>
+
+			<form class="form-inline">
+				<div class="form-group">
+					<label for="input_username">username</label>
+					<input type="text" class="form-control" placeholder="username" id="input_username"></input>
+				</div>
+
+				<div class="form-group">
+					<label for="input_password">password</label>
+					<input type="password" class="form-control" placeholder="password" id="input_password"></input>
+				</div>
+
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary">submit</button>
+				</div>
+			</form>
+
+			<br /><br /><hr />
+			<h1>隐藏label的内联表单</h1>
+
+			<form class="form-inline">
+				<div class="form-group">
+					<label for="input_username1" class="sr-only">username</label>
+					<input type="text" class="form-control" placeholder="username" id="input_username1"></input>
+				</div>
+
+				<div class="form-group">
+					<label for="input_password1" class="sr-only">password</label>
+					<input type="password" class="form-control" placeholder="password" id="input_password1"></input>					
+				</div>
+
+				<div class="form-group">
+					<button type="submit" class="btn btn-default">submit</button>
+				</div>
+			</form>
+
+			<br /><br /><hr />
+			<h1>特殊的内联表单</h1>
+
+			<form class="form-inline">
+				<div class="form-group">
+					<label class="sr-only">Mount</label>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<input type="text" class="form-control" placeholder="price"></input>
+						<div class="input-group-addon">.00</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="sr-only">submit</label>
+					<button type="submit" class="btn btn-primary">submit</button>
+				</div>
+			</form>
+
+			<br /><br /><hr />
+			<h1>水平排列的表单</h1>
+
+			<form class="form-horizontal">
+				<div class="form-group">
+					<div class="col-md-2 text-right">
+						<label class="control-label">username</label>
+					</div>
+					<div class="col-md-10">
+						<input type="text" class="form-control" placeholder="username"></input>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-md-2 text-right">
+						<label class="control-label">password</label>
+					</div>
+					<div class="col-md-10">
+						<input class="form-control" type="password" placeholder="password"></input>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<button type="submit" class="btn btn-default">submit</button>
+				</div>
+			</form>
+		</div>
+	</body>
+
+
+</html>
+
+<!--
+	form:		内联表单：class = "form-inline"		水平表单：class = "form-horizontal"
+	label:		class = "sr-only"				class = "control-label"
+	input:		class = "form-control"
+	button:		class = "btn btn-default"
+-->
