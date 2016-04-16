@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--
+bootstrap:
+	1.CSS样式
+	2.CSS组件
+	3.JS插件
+
+CSS学习内容：
+	1.栅格系统
+	2.排版
+	3.代码
+	4.表格
+	5.表单
+	6.按钮
+	7.图片
+	8.响应式图片
+	9.工具
+
+bootstrap:文件的引入，必须在所有的js引入之前先引入 jquery.min.js，即：
+	<script type="" src="BootStrap3.0.3/js/jquery.min.js"></script>
+
+css样式必须有：
+	<link rel="stylesheet" type="text/css" href="BootStrap3.0.3/css/bootstrap.min.css">
+-->
+	<meta charset="utf-8" />
+	<title>bootstrap学习-CSS-按钮 /图片</title>
+	<link rel="stylesheet" type="text/css" href="BootStrap3.0.3/css/bootstrap.min.css">
+	<script type="" src="BootStrap3.0.3/js/jquery.min.js"></script>
+	<script type="" src="BootStrap3.0.3/js/bootstrap.min.js"></script>
+	<script type="" src="BootStrap3.0.3/js/datetimepicker.min.js"></script>
+	<script type="" src="BootStrap3.0.3/js/highlight.min.js"></script>
+	<script type="" src="BootStrap3.0.3/js/holder.min.js"></script>
+	<script type="" src="BootStrap3.0.3/js/application.js"></script>
+
+	<style type="text/css">
+	</style>	
+</head>
+
+<body>
+	<div class="container">
+		<!--按钮:
+			button标签:样式btn btn-default，btn btn-primary，btn btn-danger，btn btn-info
+							btn btn-warning，btn btn-success
+						尺寸 btn-sm btn-lg btn-xs
+						按钮变成块元素 btn-block
+						按钮活动状态： active
+			a标签
+			input type="button"
+		-->
+		<button class="btn btn-default">button</button>
+		<button class="btn btn-primary">button</button>
+		<button class="btn btn-danger">button</button>
+		<button class="btn btn-info">button</button>
+		<button class="btn btn-warning">button</button>
+		<button class="btn btn-success">button</button>
+
+		<a href="" class="btn btn-link">link</a>
+		<a href="" class="btn btn-primary">link</a>
+
+		<br />
+		<button class="btn btn-success">button</button>
+		<button class="btn btn-success btn-xs">button</button>
+		<button class="btn btn-success btn-sm">button</button>
+		<button class="btn btn-success btn-lg">button</button>
+
+		<br />
+		<button class="btn btn-primary btn-block">button</button>
+		<button class="btn btn-primary btn-xs btn-block">button</button>
+		<button class="btn btn-primary btn-sm btn-block">button</button>
+		<button class="btn btn-primary btn-lg btn-block">button</button>
+
+		<!--关闭箭头：
+		span标签：class:close,该箭头属于上一层的div
+		可以使用“&times;”,也可以使用“x”表示-->
+		<div>
+			<button class="close">&times;</button> 
+			<span>通过使用一个象征关闭的图标，可以让模态框和警告框消失。通过使用一个象征关闭的图标，可以让模态框和警告框消失。通过使用一个象征关闭的图标，可以让模态框和警告框消失。通过使用一个象征关闭的图标，可以让模态框和警告框消失。通过使用一个象征关闭的图标，可以让模态框和警告框消失。</span>
+		</div>
+
+		<!--图片：
+		img: img-rounded img-circle img-thumbnail
+		响应式图片: img-responsive-->
+		<img src="1.jpg" class="img-rounded" width="200" height="200">
+		<img src="1.jpg" class="img-circle"  width="200" height="200">
+		<img src="1.jpg" class="img-thumbnail"  width="200" height="200">
+
+		<img src="2.jpg">
+		<img src="2.jpg" class="img-responsive">
+	</div>
+</body>
+
+</html>
