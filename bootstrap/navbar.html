@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--
+bootstrap:
+	1.CSS样式
+	2.CSS组件
+	3.JS插件
+
+CSS学习内容：
+	1.栅格系统
+	2.排版
+	3.代码
+	4.表格
+	5.表单
+	6.按钮
+	7.图片
+	8.响应式图片
+	9.工具
+
+bootstrap:文件的引入，必须在所有的js引入之前先引入 jquery.min.js，即：
+	<script type="" src="BootStrap3.0.3/js/jquery.min.js"></script>
+
+css样式必须有：
+	<link rel="stylesheet" type="text/css" href="BootStrap3.0.3/css/bootstrap.min.css">
+-->
+	<meta charset="utf-8" />
+	<title>bootstrap学习-CSS组件-导航条</title>
+	<link rel="stylesheet" type="text/css" href="BootStrap3.0.3/css/bootstrap.min.css">
+	<script type="" src="BootStrap3.0.3/js/jquery.min.js"></script>
+	<script type="" src="BootStrap3.0.3/js/bootstrap.min.js"></script>
+	<script type="" src="BootStrap3.0.3/js/datetimepicker.min.js"></script>
+	<script type="" src="BootStrap3.0.3/js/highlight.min.js"></script>
+	<script type="" src="BootStrap3.0.3/js/holder.min.js"></script>
+	<script type="" src="BootStrap3.0.3/js/application.js"></script>
+
+	<style type="text/css">
+		.container{
+			padding-top: 50px;
+		}
+	</style>	
+</head>
+
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<!--导航条：
+			nav标签：navbar navbar-default导航条默认的样式	navbar-fixed-top固定导航条在页面上方	navbar-inverse反色
+			导航条分两部分：
+				1.div.navbar-header
+					1) logo区:a.navbar-brand
+					2) 控制低分辨率下的导航条显示的按钮:button.navbar-toggle collapse
+
+				2.div.collapse navbar-collapse
+					ul.nav navbar-nav
+						li....
+					form.navbar-form
+		-->
+		<div class="navbar-header">
+			<a href="" class="navbar-brand">Brand</a>
+<!-- 			<a href="" class="navbar-brand"><img src="1.jpg"></a> -->
+
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<!--按钮的样式需要span来控制-->
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<!--这里需要使用id以便与header中的按钮相呼应-->
+			
+			<ul class="nav navbar-nav">
+				<li><a href="">Home</a></li>
+				<li><a href="">Profiles</a></li>
+				<li><a href="">Blog</a></li>
+				<li class="dropdown">
+					<a href="" class="dropdown-toggle" data-toggle="dropdown">dropdown
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="">test1</a></li>
+						<li><a href="">test2</a></li>
+						<li><a href="">test3</a></li>
+						<li><a href="">test4</a></li>
+					</ul>
+				</li>
+			</ul>
+
+
+			<form class="navbar-form pull-right">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="search 0x00000000.com"></input>
+				</div>
+				<div class="form-group">
+					<button type="button" class="btn btn-primary">Search</button>
+				</div>
+			</form>
+
+		</div>
+	</nav>
+
+	<div class="container">
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+		<h1>Hello World</h1>
+	</div>
+</body>
+</html>
