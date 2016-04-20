@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--head中主要包括3部分内容：
+		1.指定浏览器解析的编码
+		2.css样式文件
+		3.js文件-->
+	<meta charset="utf-8" >
+	<title>html中的表单</title>
+	<link rel="stylesheet" type="text/css" href="">
+	<script type="text/javascript" src=""></script>
+
+	<style type="text/css">
+
+	</style>
+
+	<script type="text/javascript">
+	</script>
+</head>
+
+<body>
+
+	<form action="" method="POST">
+		<!--form的两个主要属性：
+			1.action:表单要提交给的文件
+			2.method:指定表单提交的方法-->
+
+		<!-- input标签:
+			type = "text"
+			type = "password"
+			type = "radio"
+			type = "checkbox"
+			type = "submit"
+			type = "reset"
+			 -->
+
+		<div>
+			<label>username:</label>
+			<input type="text" name="username" size="20" placeholder="username"></input>
+		</div><br>
+
+		<div>
+			<label>password:</label>
+			<input type="password" name="password" size="20" placeholder="password"></input>	
+		</div><br>
+		
+		<div>
+			<!--单选按钮组：
+				<input type = "radio" />
+				1.所有的单选按钮必须name一致，表示是一组
+				2.所有的单选按钮必须有value属性，所代表的值就是提交的数据
+				3.选择的数据是input标签中包含的标签的数据-->
+			<input type="radio" name="radio" value="1"><span>1</span></input>
+			<input type="radio" name="radio" value="2"><span>2</span></input>
+			<input type="radio" name="radio" value="3"><span>3</span></input>
+		</div><br >
+
+		<div>
+			<!--多选按钮：
+				<input type = "checkbox" />
+				1.所有的多选按钮必须有name和value属性
+				2.name属性必须的同名的数组
+				3.选择的数据是input标签包含的标签的数据-->
+			<input type="checkbox" id="testid1" name="checkbox[]" value="1"><label for="testid1">1</label></input>
+			<input type="checkbox" id="testid2" name="checkbox[]" value="2"><label for="testid2">2</label></input>
+			<input type="checkbox" id="testid3" name="checkbox[]" value="3"><label for="testid3">3</label></input>
+			<input type="checkbox" id="testid4" name="checkbox[]" value="4"><label for="testid4">4</label></input>
+		</div>
+
+		<div>
+			<input type="submit" name="" value="submit"></input>
+		</div>
+
+		<div>
+			<input type="reset" name="" value="reset"></input>
+		</div>
+
+	</form>
+
+</body>
+</html>
