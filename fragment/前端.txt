@@ -104,7 +104,36 @@
     - letter-spacing            字间距
     - word-spacing              词间距
 * 4.边框属性
-* 5.鼠标光标属性
-* 6.定位属性
-* 7.区块属性
-* 8.列表属性
+    - border border-width | border-style | border-color
+    - border-top                指定上边框的宽度 
+    - border-left               指定左边框的宽度
+    - border-right              指定右边框的宽度
+    - border-bottom             指定下边框的宽度
+* 5.列表<ul>
+    - list-style:none; (使用ul和li构建导航栏时，需要把列表的序列符去掉)
+    - <li>float:left   (需要把li的元素平铺到一排)
+* 6.尺寸
+    - height
+    - max-height
+    - min-height
+    - width
+    - max-width
+    - min-width
+* 7.textarea
+    - resize:none;      (设置文本输入框的大小不可以改变)
+* 8.边距
+    - margin:外边距
+        + margin-left:auto;
+        + margin-right:auto;
+    - padding:内边距
+* 9.表格
+    - border-collapse           (表格之间的边框是否合并)
+    - border-spacing            (表格之间的线的距离)
+* 10.鼠标光标属性
+    - cursor
+* 11.定位属性
+* 12.布局
+* 13.区块属性
+* 14.漂浮
+* 15.滚动条
+* 16.显示与隐藏
