@@ -1,0 +1,123 @@
+NumPy的数值类型：
+    
+    bool            1bit
+    inti            int32或者int64
+
+    int8            -128~127
+    int16           -32768~32767
+    int32           -2^31~2^31-1
+    int64           -2^63~2^63-1
+
+    uint8           0~255
+    uint16          0~65536
+    uint32          0~2^32
+    uint64          0~2^64
+
+
+    float16         半精度         16bit       2B
+    float32         单精度         32bit       4B
+    float64         双精度         64bit       8B
+
+    complex64       复数          2个32位浮点数        8B
+    complex128      复数          2个64位浮点数        16B
+
+
+NumPy提供了两种基本的对象：
+    数组：ndarray(N-dimensional array object)
+    函数：ufunc(universal function object)
+
+
+
+通过函数array创建一个数组，可以是多维
+    numpy.array(array_list, dtype=numpy.int64)
+    Paraments:
+    Return:
+
+    arr1 = numpy.ndarray([1,2,3,4])             创建一个一维数组
+    arr2 = numpy.ndarray([[1,2,3],[4,5,6]])     创建一个二维数组
+    arr3 = numpy.ndarray(
+            [
+                [ 
+                    [1,2] , [3,4] , [5,6] 
+                ],
+                [ 
+                    [7,8] , [9,10] , [11,12] 
+                ],
+                [ 
+                    [13,14] , [15,16] , [17,18] 
+                ]
+            ]
+        )       创建一个三维数组
+
+
+
+快速的生成一个以为的数组对象，使用方法类似range函数，然后可以通过修改shape属性，修改数组的维数
+numpy.arange(start, end, step)
+Paraments:
+    start:开始的值
+    end:结束的值
+    step:步长
+Return:
+    <object ndarray>
+注意：包含头，不包含尾
+a = numpy.arange(0,18,1)
+#array([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17])
+
+
+
+
+创建等差数列
+numpy.linspace(start, end, number, endpoint=True)
+Paraments:
+    start:开始的值
+    end:结束的值
+    number:开始与结束之间总共有多少个值
+    endpoint:是否包含终值(default=True)
+Return:
+    <object ndarray>
+
+a = numpy.linspace(0,1,12)
+#array([ 0.,  0.09090909,  0.18181818,  0.27272727,  0.36363636,
+#       0.45454545,  0.54545455,  0.63636364,  0.72727273,  0.81818182,
+#       0.90909091,  1.        ])
+
+
+
+创建等比数列:
+numpy.logspace(start, end, number)
+Paraments:
+    start:起始的值，值的含义是10^start
+    end:结束的值，值的含义是10^end
+    number:数列包含的值的个数
+Return:
+    <object ndarray>
+注意：
+    起始和结束值代表的含义是相应的数的10次方
+
+
+
+
+
+数组对象的属性：
+arr.dtype   返回数组的元素的数据类型
+arr.shape   返回一个元组，元组的长度表示数组的维度，元组的元素表示各轴的长度
+
+
+
+
+
+数组对象的方法：
+ndarray.reshape()
+Paraments:
+    元组，元组的长度表示数组的维度，元组的元素表示数组的各轴的长度
+Return:
+    一个新的数组元素
+注意：
+    该方法的返回值（数组）与原数组共享内存区域，修改其中任意一个数组都会影响到另一个数组。
+
+
+
+对ndarray数组元素的访问：（与访问列表元素的形式一样）
+    1.通过下标
+    2.切片
+但是与列表不同的是，通过下标获取的新的数组是原始数组的一个视图，和原始数组共享一块内存区域，意味着修改得到的视图数组，就会修改原始的数组
