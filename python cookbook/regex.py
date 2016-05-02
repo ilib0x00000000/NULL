@@ -52,6 +52,23 @@
 	详细模式表达式：
 		给正则表达式加注释
 		需要指定 re.VERBOSE
+
+
+
+	替换：sub
+		regex.sub(new_str, text)
+		re.sub(old_str, new_str, text)
+		可以传入一个count值限制完成替换的次数
+
+		在替换时，需要保留搜索字符串的一部分，可以将其作为一个子组，在替换时保留该子组可以通过\num引用
+		同理：可以通过\g<name>保留命名组
+
+		subn
+		与sub很相似，但是它会同时返回修改后的字符串和修改的次数包含在一个元组中
+
+	切割：split
+		regex.split(text)
+		re.split(pattern, text)
 """
 
 import re
@@ -113,8 +130,38 @@ def test_chinese(text, patterns=[]):
 		else:
 			print 'no match'
 
+def test_sub():
+	bold = re.compile(r'\*{2}(.*?)\*{2}', re.UNICODE)
+	text = 'Make this **bold**. This **too**.'
+
+	print 'Text: ',text
+	print 'Blod: ',bold.sub(r'<b>\1</b>', text)
 
 
+	named_bold = re.compile(r'\*{2}(?P<bold_text>.*?)\*{2}', re.UNICODE)
+	print '\nnamed_bold: ',named_bold.sub(r'<b>\g<bold_text></b>', text)
+
+	print '\nsubn: '
+	print 'named_bold: ',named_bold.subn(r'<b>\g<bold_text></b>', text)
+
+
+
+	text = """Our first implementation of this idea was the obvious one: 
+
+		use the Python standard library’s threading.
+
+
+		Condition.wait with a timeout. Another thread wakes the executor early by signaling the condition variable.
+	"""
+
+	frage = re.compile(r'\n{2,}', re.UNICODE)
+
+	print '\nSplit: '
+	# for num,item  in  enumerate(frage.split())
+	for num,item in enumerate(frage.split(text)):
+		print num,item
+
+	return 
 
 
 if __name__ == '__main__':
@@ -130,3 +177,5 @@ if __name__ == '__main__':
 	text = '这是一段中文测试字符'
 	patterns = [r'测试']
 	test_chinese(text, patterns)
+
+	test_sub()
