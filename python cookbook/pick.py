@@ -72,3 +72,65 @@ for obj in load_obj:
 
 os.remove('temp.txt')
 
+# *************************************************************************************
+"""
+并不是所有的对象都是可pickle的，
+套接字、文件句柄、数据库连接以及其他运行时状态依赖于操作系统或其他进程的对象可能无法
+用一种有意义的方式保存
+"""
+
+# 循环引用
+
+class Node(object):
+	"""简单的有向图
+	"""
+	def __init__(self, name):
+		self.name = name
+		self.connections = []
+
+	def add_edge(self, node):
+		self.connections.append(node)
+
+	def __iter__(self):
+		return iter(self.connections)
+
+	def __str__(self):
+		return self.name
+
+	repr = __str__
+
+
+def show_node(root, has_pass = set([])):
+	"""图的深度优先遍历
+	"""
+	if root.connections:
+		for item in root.connections:
+			print root,'------>',item
+			has_pass.add(root)
+			if item not in has_pass:
+				show_node(item, has_pass)
+	else:
+		return
+
+
+root = Node('root')
+a = Node('a')
+b = Node('b')
+c = Node('c')
+
+root.add_edge(a)
+root.add_edge(b)
+
+a.add_edge(b)
+
+b.add_edge(a)
+b.add_edge(c)
+
+a.add_edge(a)
+
+show_node(root)
+
+dumped = pickle.dumps(root)
+reloaded = pickle.loads(dumped)
+
+show_node(reloaded)
