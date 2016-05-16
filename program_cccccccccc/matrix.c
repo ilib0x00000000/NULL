@@ -16,9 +16,9 @@ int main(int argc, char const *argv[])
 	/*
 		Warnning: 这里的矩阵以静态的数据给出，实际需要动态构造数组
 	*/
-	int mata[2][2] = {{2,3}, {1,-5}};						// 矩阵A
+	int mata[2][2] = {{2,3}, {1,-5}};					// 矩阵A
 	int matb[2][3] = {{4,3,6}, {1,-2,3}};					// 矩阵B
-	int resmat[ROW][COL] = {0};								// 矩阵A乘以矩阵B的结果集
+	int resmat[ROW][COL] = {0};						// 矩阵A乘以矩阵B的结果集
 
 	int bp = 3;
 	int n = 2;
