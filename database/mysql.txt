@@ -1,0 +1,291 @@
+1. 查看所有数据库
+	> SHOW DATABASES;
+
+2. 选择数据库
+	> USE database_name;
+
+3. 查看数据库中的所有表名
+	> SHOW TABLES;
+
+4. 查看数据库表的结构
+	> show create table table_name;
+
+******************************************************************************************************************
+
+创建数据库
+	> CREATE DATABASE database_name;
+
+创建数据库表
+	> CREATE TABLE table_name
+	> (
+	> 	pid			int 			NOT NULL,
+	>	username	varchar(25)		NOT NULL,
+	>	sex			int 			NOT NULL 			DEFAULT 1,
+	>	score		int,
+	>	UNIQUE(pid),
+	>	PRIMARY KEY(pid),
+	>	CHECK(sex=0 OR sex=1),
+	>	CHECK(score>=0 AND score<=100)
+	> );
+
+数据库中表的字段的约束：
+	o NOT NULL
+	o UNIQUE
+	o PRIMARY KEY
+	o FOREIGN KEY
+	o CHECK
+	o DEFAULT
+	o AUTO_INCREMENT
+
+	创建数据库表时，限制条件NOT NULL 和DEFAULT,AUTO_INCREMENT可以跟随字段之后，
+	UNIQUE, PRIMARY KEY, FOREIGN KEY, CHECK	需要放到创建语句最后声明。
+
+
+******************************************************************************************************************
+增：
+	> INSERT INTO table_name(col1, col2, ..., coln) VALUES(val1, val2, ..., valn);
+
+	整行插入：
+	> INSERT INTO table_name VALUES(val1, val2, ..., valn);
+
+删：
+	> DELETE FROM table_name WHERE col = val;
+
+	删除全表数据：
+	> DELETE FROM table_name;
+
+	删除表中的数据，但不删除表：
+	> TRUNCATE TABLE table_name;
+
+改：
+	> UPDATE table_name SET col1 = val1, coln = valn..., WHERE colx = valx;
+
+查：
+	> SELECT [DISTINCT] col1,col2,...,coln FROM table_name [WHERE condition1 AND|OR condition_x] [ORDER BY colx ASE|DESC]
+
+
+******************************************************************************************************************
+查-limit：
+	/*截取查询结果的n条记录*/
+	> SELECT [DISTINCT] col1,col2,...,coln FROM table_name [WHERE condition1 AND|OR condition_x] [ORDER BY colx ASE|DESC]
+	> LIMIT num
+
+查-like：
+	/*模糊查询，必须和where配合使用*/
+	> SELECT [DISTINCT] col1,col2,...,coln FROM table_name
+	> WHERE colx LIKE pattern;
+
+查-in:
+	/*匹配可选选项中的条件*/
+	> SELECT [DISTINCT] col1,col2,...,coln FROM table_name
+	> WHERE col IN (val1, val2, ..., valn);
+
+查-between-and(not between and):
+	/*筛选条件为某一段值的区间*/
+	> SELECT [DISTINCT] col1,col2,...,coln FROM table_name
+	> WHERE col BETWEEN val1 AND val2;
+
+查-as：
+	/*给指定的列/表起个别名*/
+	> SELECT [DISTINCT] colx AS new_name1, coly AS new_name2 FROM table_name;
+
+******************************************************************************************************************
+JOIN:(注意：JOIN语句中的条件子句关键字为ON，而不是WHERE)
+	/*
+		CREATE TABLE `students` 
+		(
+	  		`sid` int(11) NOT NULL,
+			`name` varchar(25) NOT NULL,
+			`major` varchar(25) NOT NULL,
+			`sex` int(11) DEFAULT '1',
+			`age` int(11) DEFAULT NULL,
+	  		PRIMARY KEY (`sid`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+		CREATE TABLE `courses` 
+		(
+			`cid` int(11) NOT NULL,
+			`name` varchar(25) NOT NULL,
+			`sid` int(11) NOT NULL,
+			PRIMARY KEY (`cid`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8 
+	*/
+
+
+	inner join:如果表中有至少一个匹配，则返回行
+		> SELECT students.name as stuname, courses.name as curname, students.sid FROM students
+		> INNER JOIN courses WHERE students.sid = courses.sid ORDER BY students.sid;
+
+
+
+	left join: 即使右表中没有匹配，也从左表返回所有的行
+		> SELECT students.name as stuname, courses.name as curname, students.sid, students.major FROM students 
+		> LEFT JOIN courses ON students.sid = courses.sid ORDER BY students.sid;
+
+
+	right join: 即使左表中没有匹配，也从右表返回所有的行
+		> SELECT students.name as stuname, students.major, courses.name as curname FROM students 
+		> RIGHT JOIN courses on students.sid = courses.sid ORDER BY students.sid ;
+
+
+	# full join: 只要其中一个表中存在匹配，就返回行 (MySQL中测试未成功)
+
+******************************************************************************************************************
+
+UNION:将两个表中选出的数据合成一个数据集
+	语法：
+		SELECT col1, col2, ... FROM table1
+		UNION [ALL]
+		SELECT col1, col2, ... FROM table2
+	注意：
+		两个select的列必须数量相同，且列中的数据类型要相同
+		默认select出的结果是非重复的，加上关键字all选择所有数据，允许重复数据
+
+	> SELECT pid,name FROM Employees_China
+	> UNION [ALL]
+	> SELECT pid,name FROM Employees_USA;
+
+
+
+SELECT INTO：多行插入
+	语法：
+		INSERT INTO table_name(col1, col2, coln, ...)
+		VALUES
+		(val1, val2, valn ...),
+		(val1, val2, valn ...),
+		(val1, val2, valn ...);
+
+
+SELECT INTO:从一个表中选出数据插入到另一个表中
+	语法：
+		INSERT INTO table1_name(col1, col2, coln, ...) 查询子句;
+
+		> INSERT INTO Employees_USA(pid, name)
+		> SELECT pid,name 
+		> FROM Employees_China [WHERE exp];
+
+******************************************************************************************************************
+MySQL中的数据类型：
+	1.数值型
+		TINYINT		1 字节	(-128，127)	(0，255)											小整数值
+		SMALLINT	2 字节	(-32 768，32 767)	(0，65 535)								大整数值
+		MEDIUMINT	3 字节	(-8 388 608，8 388 607)	(0，16 777 215)						大整数值
+		INT 		4 字节	(-2 147 483 648，2 147 483 647)	(0，4 294 967 295)			大整数值
+		BIGINT		8 字节																极大整数值
+		
+		FLOAT		4 字节																单精度浮点数值
+		DOUBLE		8 字节																双精度浮点数值
+
+		DECIMAL		对DECIMAL(M,D) ，如果M>D，为M+2否则为D+2	依赖于M和D的值	依赖于M和D的值	小数值
+
+
+	2.日期时间类型
+		DATE		3		1000-01-01/9999-12-31		YYYY-MM-DD						日期值
+		TIME		3		'-838:59:59'/'838:59:59'	HH:MM:SS						时间值或持续时间
+		YEAR		1		1901/2155					YYYY							年份值
+		DATETIME	8		9999-12-31 23:59:59			YYYY-MM-DD HH:MM:SS				混合日期和时间值
+		TIMESTAMP	8		1970-01-01 00:00:00/2037 	YYYYMMDD HHMMSS					混合日期和时间值，时间戳
+
+
+	3.字符串型
+		CHAR			0-255字节					定长字符串
+		VARCHAR			0-65535字节					变长字符串
+
+		TINYBLOB		0-255字节					不超过 255 个字符的二进制字符串
+		TINYTEXT		0-255字节					短文本字符串
+		
+		BLOB			0-65535字节					二进制形式的长文本数据
+		TEXT			0-65535字节					长文本数据
+
+		MEDIUMBLOB		0-16 777 215字节				二进制形式的中等长度文本数据
+		MEDIUMTEXT		0-16 777 215字节				中等长度文本数据
+
+		LONGBLOB		0-4 294 967 295字节			二进制形式的极大文本数据
+		LONGTEXT		0-4 294 967 295字节			极大文本数据
+
+******************************************************************************************************************
+
+ALTER:增/删表的列
+	语法：
+		ALTER TABLE table_name ADD column_name datatype;						// 新增列
+		ALTER TABLE table_name DROP COLUMN column_name;							// 删除列
+
+
+		> ALTER TABLE Person 
+		> ADD birth DATETIME;
+
+		> ALTER TABLE Person
+		> DROP COLUMN birth;
+	
+
+INDEX:索引
+	语法：
+		CREATE [UNIQUE] INDEX index_name ON table_name(col1[,col2,...]);		// 创建索引
+		ALTER TABLE table_name DROP INDEX index_name;							// 删除索引
+
+		> CREATE [UNIQUE] INDEX user_id
+		> ON Person(pid);
+
+		> ALTER TABLE Person
+		> DROP INDEX user_id;
+
+******************************************************************************************************************
+
+FUNCTION:函数
+	语法：
+		SELECT FUNCTION(col1,col2,... )[, FUNCTION(col1...)] FROM table_name WHERE condition;
+
+		函数分成两类：聚合函数(Aggregate)和纯量函数(Scalar)
+		聚合函数：作用于多个值，返回一个值
+		纯量函数：作用于多个值，返回多个值
+
+		SELECT AVG(col1) FROM table_name;												// 求该列的平均数
+		SELECT COUNT([DISTINCT] col1) FROM table_name [WHERE condition];				// 返回该列的记录（非重复）条数
+		SELECT MAX(col) FROM table_name;												// 查找该列的最大值
+		SELECT MIN(col) FROM table_name;												// 查找该列的最小值
+		SELECT SUM(col) FROM table_name;												// 求该列的和
+		SELECT colx,FUNCTION(coly) FROM table_name GROUP BY colx; 						// 以某列分类，对分类后的结果调用函数
+
+		// 函数不能与where共同使用，所以Having替代了where
+		// 对函数作用结果进行条件查询
+		SELECT column_name, aggregate_function(column_name)
+		FROM table_name
+		WHERE column_name operator value
+		GROUP BY column_name
+		HAVING aggregate_function(column_name) operator value		
+
+		// 其实having是在筛选语句结果生成的表中再使用条件语句筛选
+
+
+		SELECT UCASE(colx) FROM table_name;												// 将选择的列的字母全部大写
+		SELECT LCASE(colx) FROM table_name;												// 将选择的列的字母全部小写
+		SELECT MID(colx, start_index [, count]) FROM table_name;						// 从选择的列中取出count个字母，起始下标为1
+		SELECT ROUND(colx, n) FROM table_name;											// 将选择的列四舍五入保留n位小数
+		SELECT NOW() [AS x], col1,col2 FROM table_name; 								// 返回当前时间
+
+******************************************************************************************************************
+
+VIEW:视图
+	语法：
+		CREATE VIEW view_name AS SELECT col1,col2,... FROM table_name WHERE condition;	// 创建视图
+		DROP VIEW view_name;															// 撤销视图
+
+
+		> CREATE VIEW py_sql AS
+		> SELECT name,score 
+		> FROM table_name
+		> WHERE condition;
+
+		> SELECT * FROM view_name;
+
+		> DROP VIEW view_name;
+
+******************************************************************************************************************
+
+事务：必须满足4个条件（ACID）
+	1. 原子性：一组事务，要么成功，要么撤回
+	2. 稳定性：有非法数据（外键约束之类），事务撤回
+	3. 隔离性：事务独立运行。影响了其他事务，那么其他事务会撤回。
+	4. 可靠性：软、硬件崩溃后，InnoDB数据表驱动会利用日志文件重构修改。
+
