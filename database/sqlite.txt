@@ -1,0 +1,45 @@
+启动sqlite3
+**********************************************************************************************
+
+创建数据库:
+	$ sqlite3 database_name.db
+	例： $sqlite3 py_sqlite.db
+
+
+列出数据库:
+	> .databases
+
+
+创建数据库表：
+	> CREATE TABLE table_name(
+	> col_name	datatype	[PRIMARY KEY]	[NOT NULL], 
+	> col_name	datatype	[NOT NULL],
+	> col_name	datatype	[NOT NULL],
+	> col_name	datatype	[NOT NULL],
+	> col_name	datatype	[NOT NULL]
+	> );
+
+	例：
+	CREATE TABLE users(
+		id int PRIMARY KEY NOT NULL,
+		name varchar(25),
+		sex boolean,
+		score int
+	);
+
+	查看表是否建立成功：
+	> .tables
+
+**********************************************************************************************
+插入数据：
+	> INSERT INTO table_name(col1, col2, ...., coln) VALUES(val1, val2, ..., valn);
+
+	例：
+	INSERT INTO users VALUES(1096, '张三', 0, 83)
+	INSERT INTO users VALUES(1061, '李四', 0, 74)
+	INSERT INTO users VALUES(2241, '王五', 1, 94)
+	INSERT INTO users VALUES(1353, 'test', 0, 66)
+
+查看数据：
+	> SELECT * FROM table_name;
+
