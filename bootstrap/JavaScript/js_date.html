@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8" />
+	<style type="text/css">
+		#mytimer{
+			margin: auto;
+			width: 500px;
+			height: 200px;
+			background: #ccc;
+			font-size: 30px;
+			color:red;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div id="mytimer">2016-6-20 12:18:35</div>
+</body>
+<script type="text/javascript">
+	var obj = document.getElementById("mytimer");
+	/*
+		textContent:获得目的标签的文本内容
+		outerHTML
+		innerHTML
+	 */
+	var setTime = function(){
+		var date = new Date();
+
+		var year = date.getFullYear();
+		var month = date.getMonth();
+		var day = date.getDate();
+		var hour = date.getHours();
+		var minute = date.getMinutes();
+		var second = date.getSeconds();
+
+		obj.textContent = (year+'-'+month+'-'+day+'  '+hour+':'+minute+':'+second);
+	};
+
+	
+	/**
+	 * 定时器:setInterval(function, time)
+	 * 		  clearInterval()清除定时器
+	 */
+	setInterval(setTime, 1000);
+
+	/**
+	 * 超时器:setTimeout(function, time );
+	 * 		  clearTimeout()
+	 */
+</script>
+</html>
