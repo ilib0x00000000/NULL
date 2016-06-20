@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8" />
+	<style type="text/css">
+		#container{
+			margin: auto;
+			width: 800px;
+			height: 300px;
+			background-color: #ccc;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="container"></div>
+</body>
+
+<script type="text/javascript">
+	/*JavaScript中数组*/
+	var arr = [1, 2, 3, 4];
+	length = arr.length;
+
+	/*遍历数组时，尽量根据数组的下标遍历*/
+	for(var i = 0 ; i < arr.length; i++){
+		alert(arr[i]);
+	}
+	
+	for(var item in arr){
+		var temp = item; // for in 循环数组得到的是数组的下标
+	}
+
+	/**
+	 * 数组的函数
+	 * concat() 					连接两个或多个数组，并返回结果，并不改变原来的数组
+	 * join() 						把数组的所有元素放入一个字符串，元素通过指定的分隔符进行分隔
+	 * pop() 						删除并返回最后一个元素
+	 * push() 						向数组的末尾添加一个或更多元素，并返回新的长度
+	 * reverse() 					颠倒数组中元素的顺序，改变原数组的顺序
+	 * shift() 						删除并返回数组的第一个元素
+	 * unshift()  					向数组的开头添加一个或更多的元素，并返回新的长度
+	 * slice() 						从数组返回指定的元素
+	 * sort() 						对数组元素进行排序
+	 */
+	
+	var array1 = [1, 2, 3, 4];
+	var array2 = ['a', 'b', 'c'];
+
+	/*连接多个数组*/
+	var array3 = array1.concat(array2);
+	// alert(array3);
+	
+	/*用指定字符连接数组各元素，并返回这个字符串*/
+	var string = array1.join("-----");
+	// alert(string);
+	
+	/*弹出数组的最后一个元素*/
+	var last = array1.pop();
+	// alert(last);
+
+	/*向数组追加元素*/
+	var new_length = array1.push('................');
+	// alert(new_length);
+	
+	/*数组的倒置*/
+	var array4 = array1.reverse();
+	// alert(array1);
+	// alert(array4);
+	
+	/*删除数组的起始元素*/
+	var first = array1.shift();
+	// alert(first);
+	// alert(array1);
+
+	/*向数组的起始部分添加元素*/
+	var new_length = array1.unshift('a', 'b', 'c');
+	// alert(new_length);
+	// alert(array1);
+
+	/*数组的切片*/
+	var sub_arr = array1.slice(2, 5);
+	// alert(sub_arr);
+	
+	/*数组的排序*/
+	alert(array1);
+	array1.sort(function(a, b){
+		if(typeof a == string || typeof b == string){
+			return 1;
+		}else{
+			return a - b;
+		}
+	});
+	alert(array1);
+
+</script>
+
+</html>
