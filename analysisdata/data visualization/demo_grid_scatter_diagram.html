@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ECharts画图</title>
+	<meta charset="utf-8" />
+	<script type="text/javascript" src="echarts.js"></script>
+	<style type="text/css">
+		#container{
+			margin: auto;
+			width: 1000px;
+			height: 500px;
+			background-color: #ccc;
+		}
+	</style>
+</head>
+
+<body>
+<div id="container"></div>
+</body>
+
+<script type="text/javascript">
+	var chart = echarts.init(document.getElementById("container"));
+
+	var data_resource = [];
+	for(var i = 0 ;i < 100 ; i++){
+		var smarr = [Math.floor(Math.random()*100), Math.floor(Math.random()*10)];
+		data_resource.push(smarr);
+	}
+
+	var options = {
+		backgroundColor: '#333',
+		title:{
+			text:'分布在直角坐标系中的散点图',
+			left:'center',
+			textStyle:{
+				color:'#fff',
+			}
+		},
+		
+		/*直角坐标系*/
+		grid:{
+			containLabel:true,
+		},
+
+		/*x轴*/
+		xAxis:{
+			type:'value',
+			name:'x轴',
+			min:0,
+			max:100,
+			nameTextStyle:{
+				color:'#fff'
+			},
+			axisLine:{					// x轴轴线的设置
+				// show:false,
+				lineStyle:{
+					color:'#fff',
+				}
+			},
+			// axisTick:{lineStyle:{color:'#fff'}},
+			axisLabel:{ 				// x轴对应的刻度标签设置
+				show:true,
+				formatter:'{value}',
+				textStyle:{color:'#fff', fontSize:14}
+			},
+			splitLine:{show:false} 		// 坐标轴背景中的切割线
+		},
+
+		/*y轴*/
+		yAxis:{
+			name:'y轴',
+			type:'value',
+			min:0,
+			max:10,
+			nameTextStyle:{color:'#fff'},
+			axisLine:{lineStyle:{color:'#fff'}},
+			axisLabel:{ 				// y轴对应的刻度标签设置
+				show:true,
+				formatter:'{value}',
+				textStyle:{color:'#fff', fontSize:14}
+			},
+			splitLine:{show:false}
+		},
+
+		/*提示框组件*/
+		tooltip:{
+			formatter:'{a}: <{c}>'
+		},
+
+		series:[
+			{
+				name:'坐标',
+				type:'scatter',
+				symbolSize:10,
+				hoverAnimation:true,
+				legendHoverLink:true,
+				label:{},
+				itemStyle:{},
+				// data:[[16, 3], [84, 5], [6, 4], [25, 3]]
+				data:data_resource,
+			}
+		]
+	};
+
+	chart.setOption(options);
+</script>
+
+</html>
