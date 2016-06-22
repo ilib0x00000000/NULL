@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>index</title>
+	<meta charset="utf-8" />
+	<script type="text/javascript" src="echarts.js"></script>
+	<script type="text/javascript" src="dark.js"></script>
+	<style type="text/css">
+		#container{
+			margin: auto;
+			width: 1000px;
+			height: 500px;
+			background-color: #ccc;
+		}
+	</style>
+</head>
+<body>
+	<div id="container"></div>
+</body>
+
+<script type="text/javascript">
+	/**
+	 * 直角坐标系中的时间序列数据变化，实现坐标的缩放
+	 */
+	var chart = echarts.init(document.getElementById("container"), "dark");
+
+	/*x轴上的时间数据*/
+	var x_time = [];
+
+	for(var i = 1; i < 30; i++){
+		for(var j = 1 ; j < 25 ; j++){
+			x_time.push('6/' + i + ' ' + j + ':00');
+		}
+	}
+
+	/*x轴类目的各数据*/
+	var v_data = [];
+	for(var i = 0 ; i < 696; i++){
+		v_data.push(Math.floor(Math.random()*20));
+	}
+
+	var options = {
+		/*标题*/
+		title:{
+			text:'x轴横坐标实现缩放功能',
+			left:'center',
+		},
+
+		/*直角坐标系*/
+		grid:{},
+
+		legend:{
+			data:['数据'],
+			left:20,
+		},
+
+		/*X轴*/
+		xAxis:{
+			type:'category',
+			name:x_time.length+'',
+			data:x_time,
+			nameGap:15
+		},
+
+		/*y轴*/
+		yAxis:{
+			type:'value',
+			name:'y轴',
+			min:0,
+			max:20
+		},
+
+		/*提示框浮层*/
+		tooltip:{
+			trigger:'axis',
+			axisPointer:{animayion:false}
+		},
+
+		/**
+		 * 实现x轴的缩放，数据的可见
+		 */
+		/*******************************************************************************************************/
+		dataZoom:{
+			show:true,
+			type:'slider',
+			realtime:true,
+			start:40, 				// 缩放之后，数据可视的起始值百分比
+			end:60, 				// 缩放之后，数据可视的最后值百分比
+		},
+		/*******************************************************************************************************/
+
+		/*基于数据之上的特效*/
+		series:{
+				name:'数据',
+				type:'line',
+				symbolSize:8,
+				hoverAnimation:false,
+				data:v_data
+		},
+	};
+
+	chart.setOption(options);
+</script>
+
+</html>
