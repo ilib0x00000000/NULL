@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!--
+地图实现：
+	不需要geo配置项
+	实现地图上各区域的数据显示，并非散点图
+-->
+<html>
+<head>
+	<title>地图</title>
+	<meta charset="utf-8" />
+	<script type="text/javascript" src="echarts.js"></script>
+	<script type="text/javascript" src="china.js"></script>
+	<script type="text/javascript" src="dark.js"></script>
+	<style type="text/css">
+		#container{
+			margin: auto;
+			width: 1000px;
+			height: 500px;
+			background-color: #ccc;
+		}
+	</style>
+</head>
+<body>
+	<div id="container"></div>
+</body>
+
+<script type="text/javascript">
+	function randomData(){
+		return Math.round(Math.random()*1000);
+	}
+
+	var chart = echarts.init(document.getElementById("container"), 'dark');
+
+	var options = {
+		title:{
+			text:'iphone销量',
+			subtext:'纯属虚构',
+			left:'center'
+		},
+
+		tooltip:{
+			trigger:'item'
+		},
+
+		legend:{
+			left:10,
+			top:20,
+			data:['iphone销量']
+		},
+
+		visualMap:{
+			type:'continuous', 			// 视觉组件的类型（连续型）
+			min:0, 						// 连续型视觉组件的最小值
+			max:1200, 					// 连续型视觉组件的最大值
+			left:'left', 				// 组件的位置
+			top:'bottom', 				// 组件的位置
+			text:['高', '低'], 			// 组件的两端的文本
+			textStyle:{
+				color:'#fff'
+			},
+			calculable:true, 			// 是否开启值域漫游，即是否能拖拽手柄控制数据可视
+			// range:[100, 1500], 			// 初始组件的值域范围，要在min和max之间
+			realtime:true, 				// 拖动手柄时，是否数据实时更新
+			inverse:false, 				// 视觉组件的大小端位置是否颠倒
+			precision:0, 				// 数据展示的精度，默认为0，无小数点
+			itemWidth:20, 				// 长条的宽度
+			itemHeight:140, 			// 长条的高度
+			textGap:10,
+			show:true, 					// 是否显示组件长条，如果设置成false，不会显示，但是数据映射的功能还在
+			dimension:0, 				// 数据(series.data)的哪个维度
+			hoverLink:true, 			// 打开hoverLink功能时，鼠标悬停到visualMap组件上时，地图上对应的区域会高亮
+			/**
+			 * 定义在选中范围中的视觉元素
+			 * 可选的视觉元素有：
+			 * 				图形类别，图形大小，颜色，透明度，颜色透明度，
+			 * 				颜色明暗度，颜色饱和度，色调
+			 */
+		},
+
+		/**
+		 * 工具栏
+		 * 内置有：导出图片，数据视图，动态类型切换，数据区域缩放，重置
+		 * show:
+		 * orient:horizontal/vertical
+		 * itemSize:工具栏icon的大小
+		 * itemGap: 工具栏icon每项之间的间隔
+		 * showTitle:true 		是否在鼠标悬停到icon上时显示每个工具的标题
+		 * left:
+		 * top:
+		 * right:
+		 * bottom:
+		 * width
+		 * height
+		 * feature:{
+		 * 		saveAsImage: 	保存为图片
+		 * 		restore: 		配置项还原
+		 * 		dataView: 		数据视图工具
+		 * 		dataZoom: 		数据区域缩放
+		 * 		magicType: 		动态类型切换
+		 * }
+		 */
+		toolbox:{
+			show:true,
+			orient:'vertical',
+			left:'right',
+			top:'center',
+			feature:{
+				dataView:{readOnly:false},
+				restore:{},
+				saveAsImage:{}
+			}
+		},
+
+		series:[
+			{
+				name:'iphone销量',
+				type:'map',
+				mapType:'china',
+				roam:false,
+				label:{
+					normal:{show:true},
+					emphasis:{show:true}
+				},
+				data:[
+				    {name: '北京',value: randomData() },
+	                {name: '天津',value: randomData() },
+	                {name: '上海',value: randomData() },
+	                {name: '重庆',value: randomData() },
+	                {name: '河北',value: randomData() },
+	                {name: '河南',value: randomData() },
+	                {name: '云南',value: randomData() },
+	                {name: '辽宁',value: randomData() },
+	                {name: '黑龙江',value: randomData() },
+	                {name: '湖南',value: randomData() },
+	                {name: '安徽',value: randomData() },
+	                {name: '山东',value: randomData() },
+	                {name: '新疆',value: randomData() },
+	                {name: '江苏',value: randomData() },
+	                {name: '浙江',value: randomData() },
+	                {name: '江西',value: randomData() },
+	                {name: '湖北',value: randomData() },
+	                {name: '广西',value: randomData() },
+	                {name: '甘肃',value: randomData() },
+	                {name: '山西',value: randomData() },
+	                {name: '内蒙古',value: randomData() },
+	                {name: '陕西',value: randomData() },
+	                {name: '吉林',value: randomData() },
+	                {name: '福建',value: randomData() },
+	                {name: '贵州',value: randomData() },
+	                {name: '广东',value: randomData() },
+	                {name: '青海',value: randomData() },
+	                {name: '西藏',value: randomData() },
+	                {name: '四川',value: randomData() },
+	                {name: '宁夏',value: randomData() },
+	                {name: '海南',value: randomData() },
+	                {name: '台湾',value: randomData() },
+	                {name: '香港',value: randomData() },
+	                {name: '澳门',value: randomData() }
+				]
+			},
+		]
+	};
+
+	chart.setOption(options);
+</script>
+
+</html>
