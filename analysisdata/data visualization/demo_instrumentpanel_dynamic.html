@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>仪表盘</title>
+	<meta charset="utf-8" />
+	<script type="text/javascript" src="echarts.js"></script>
+	<style type="text/css">
+		#container{
+			margin: auto;
+			width: 1000px;
+			height: 500px;
+			/*background-color: #ccc;*/
+		}
+	</style>
+</head>
+<body>
+<div id="container"></div>
+</body>
+
+<script type="text/javascript">
+	/**
+	 * 仪表盘的主要几个设置
+	 * 仪表盘轴线相关配置：			axisLine:{show, lineStyle}
+	 * 分隔线样式：					splitLine:{show, length, lineStyle}
+	 * 刻度样式： 					axisTick:{show, splitNumber, length, lineStyle}
+	 * 刻度标签：					axisLabel:{show, formatter, textStyle, color}
+	 * 仪表盘指针： 				pointer:{show, length, width}
+	 * 仪表盘指针样式：				itemStyle:{normal, emphasis}
+	 */
+	var chart = echarts.init(document.getElementById("container"));
+
+	var options = {
+		tooltip:{
+			formatter:'{a}<br />{c}{b}'
+		},
+
+		series:[
+			{
+				name:'速度',
+				type:'gauge',
+				z:3,
+				min:0,
+				max:220,
+				splitNumber:11, 			// 仪表盘的刻度的切分值
+				/**
+				 * startAngle: 				仪表盘的起始角度 
+				 * endAngle: 				仪表盘的结束角度
+				 * clockwise 				仪表盘刻度是否是顺时针增长
+				 */
+				radius:'50%', 				// 仪表盘半径
+
+				axisLine:{ 					// 仪表盘轴线相关配置
+					show:true,
+					lineStyle:{
+						color:[[60/220, '#91c7ae'], [200/220, '#63869e'], [1, '#c23531']],
+						width:10,
+						/**
+						 * shadowBlur 				图形阴影的模糊大小
+						 * shadowColor 				阴影颜色
+						 * shadowOffsetX 			阴影水平方向上的偏移距离
+						 * shadowOffsetY 			阴影垂直方向上的偏移距离
+						 */
+						opacity:0.5 				// 图形透明度
+					}
+				},
+
+				splitLine:{ 						// 分割线样式，坐标轴上标注数字的段
+					show:true,
+					length:20,
+					lineStyle:{
+						color:'auto'
+					}
+				},
+
+				axisTick:{ 							// 刻度样式
+					show:true,
+					length:8,
+					lineStyle:{}
+				},
+								
+				title:{ 							// 仪表盘的标题，数据的单位，显示在仪表盘的中央
+					show:true,
+					textStyle:{
+						fontSize:20,
+						fontStyle:'italic',
+						fontWeight:'bolder'
+					}
+				},
+				
+				detail:{ 							// 显示指针指向的数字
+					show:true,
+					// width:100,
+					// height:40,
+					// backgroundColor:'#ccc',
+					// borderWidth:2,
+					// borderColor:'red'
+				},
+			}
+		]
+	};
+
+	var value = 10;
+	setInterval(function(){
+		options.series[0].data = [{value: value , name: 'km/h'}];
+		if(value>=220){
+			value=0;
+		}else{
+			value+=10;
+		}
+		chart.setOption(options)
+	}, 1000);
+</script>
+
+</html>
