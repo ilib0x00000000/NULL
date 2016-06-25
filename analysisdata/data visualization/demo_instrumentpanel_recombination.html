@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>仪表盘</title>
+	<meta charset="utf-8" />
+	<script type="text/javascript" src="echarts.js"></script>
+	<style type="text/css">
+		#container{
+			margin: auto;
+			width: 1000px;
+			height: 500px;
+			background-color: #ccc;
+		}
+	</style>
+</head>
+<body>
+<div id="container"></div>
+</body>
+
+<script type="text/javascript">
+	var chart = echarts.init(document.getElementById("container"));
+
+	var options = {
+		tooltip:{
+			trigger:'item',
+			formatter:'{a}<br />{b}:{c}'
+		},
+
+		series:[
+			{
+				type:'gauge',
+				name:'油表',
+				center:['50%' , '50%'],
+				radius:'35%',
+				min:0,
+				max:2,
+				startAngle:135,
+				endAngle:45,
+				splitNumber:2,
+
+				title:{show:false},
+				detail:{show:false},
+				pointer:{width:2},
+
+				axisLine:{ 								// 围成一圈的坐标轴
+					lineStyle:{
+						width:8
+					}
+				},
+
+				splitLine:{ 							// 坐标轴上的大的分隔线
+					length:15,
+					lineStyle:{
+						color:'auto'
+					}
+				},
+
+				axisTick:{								// 坐标轴上的小分隔线
+					splitNumber:5,
+					length:10,
+					lineStyle:{
+						color:'auto'
+					}
+				},
+
+				axisLabel:{
+					formatter:function(v){
+						switch(v+''){
+							case '0': return 'E';
+							case '1': return 'GAS';
+							case '2': return 'F';
+						}
+					}
+				},
+
+				data:[{value: 0.5, name: 'gas'}]
+			},
+			{
+				type:'gauge',
+				name:'水表',
+				center:['50%' , '50%'],
+				radius:'35%',
+				min:0,
+				max:2,
+				clockwise:false,
+				startAngle:225,
+				endAngle:315,
+				splitNumber:4,
+
+				title:{show:false},
+				detail:{show:false},
+				pointer:{width:3},
+
+				axisLine:{
+					lineStyle:{
+						width:8
+					}
+				},
+
+				splitLine:{
+					length:15,
+					lineStyle:{
+						color:'auto',
+					}
+				},
+
+				axisTick:{								// 坐标轴上的小分隔线
+					splitNumber:2,
+					length:10,
+					lineStyle:{
+						color:'auto'
+					}
+				},
+				
+				data:[{value:1.2, name:'water'}]
+			}
+		]
+	};
+
+	chart.setOption(options);
+</script>
+
+</html>
