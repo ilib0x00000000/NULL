@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>仪表盘示例</title>
+	<meta charset="utf-8" />
+	<script type="text/javascript" src="echarts.js"></script>
+	<style type="text/css">
+		#container{
+			margin: auto;
+			width: 1000px;
+			height: 500px;
+			/*background-color: #ccc;*/
+		}
+	</style>
+</head>
+<body>
+<div id="container"></div>
+</body>
+
+<script type="text/javascript">
+	var chart = echarts.init(document.getElementById("container"));
+
+	var options = {
+		tooltip:{
+			trigger:'item',
+			formatter:'{a}<br/>{c}:{b}'
+		},
+
+		series:[
+			{
+				type:'gauge',
+				name:'速度',
+				radius:'70%',
+				z:3,
+				min:0,
+				max:250,
+
+				title:{
+					show:true,
+					textStyle:{
+						fontSize:20,
+						fontStyle:'italic',
+						fontWeight:'bolder'
+					}
+				},
+				detail:{
+					show:true
+				},
+				/**
+				 * 仪表盘的主要几个设置
+				 * 仪表盘轴线相关配置：			axisLine:{show, lineStyle}
+				 * 分隔线样式：					splitLine:{show, length, lineStyle}
+				 * 刻度样式： 					axisTick:{show, splitNumber, length, lineStyle}
+				 * 刻度标签：					axisLabel:{show, formatter, textStyle, color}
+				 * 仪表盘指针： 				pointer:{show, length, width}
+				 * 仪表盘指针样式：				itemStyle:{normal, emphasis}
+				 */
+				axisLine:{
+					show:true,
+					lineStyle:{
+						color:[[60/250, '#91c7ae'], [200/250, '#63869e'], [1, '#c23531']],
+						width:15,
+					}
+				},
+
+				splitLine:{
+					show:true,
+					length:30,
+					lineStyle:{
+						color:'auto'
+					}
+				},
+
+				data:[{name:'km/h', value:189}]
+			},
+			{
+				type:'gauge',
+				name:'转速',
+				center:['24%', '55%'],
+				radius:'55%',
+				min:0,
+				max:7,
+				endAngle:45,
+				axisLine:{
+					show:true,
+					lineStyle:{
+						color:[[60/250, '#66ffff'], [200/250, '#ff9933'], [1, '#c23531']],
+						width:10,						
+					}
+				},
+				splitLine:{
+					show:true,
+					length:15,
+					lineStyle:{
+						color:'auto'
+					}					
+				},
+				data:[{value: 1.5, name: 'x1000 r/min'}]
+			},
+						{
+				type:'gauge',
+				name:'油表',
+				center:['73%' , '54%'],
+				radius:'35%',
+				min:0,
+				max:2,
+				startAngle:135,
+				endAngle:45,
+				splitNumber:2,
+
+				title:{show:false},
+				detail:{show:false},
+				pointer:{width:2},
+
+				axisLine:{ 								// 围成一圈的坐标轴
+					lineStyle:{
+						color:[[0.25, '#66ccff'], [0.75, '#3399ff'], [1, '#3300ff']],
+						width:8
+					}
+				},
+
+				splitLine:{ 							// 坐标轴上的大的分隔线
+					length:15,
+					lineStyle:{
+						color:'auto'
+					}
+				},
+
+				axisTick:{								// 坐标轴上的小分隔线
+					splitNumber:5,
+					length:10,
+					lineStyle:{
+						color:'auto'
+					}
+				},
+
+				axisLabel:{
+					formatter:function(v){
+						switch(v+''){
+							case '0': return 'E';
+							case '1': return 'GAS';
+							case '2': return 'F';
+						}
+					}
+				},
+
+				data:[{value: 0.5, name: 'gas'}]
+			},
+			{
+				type:'gauge',
+				name:'水表',
+				center:['73%' , '54%'],
+				radius:'35%',
+				min:0,
+				max:2,
+				clockwise:false,
+				startAngle:225,
+				endAngle:315,
+				splitNumber:4,
+
+				title:{show:false},
+				detail:{show:false},
+				pointer:{width:3},
+
+				axisLine:{
+					lineStyle:{
+						color:[[0.25, '#6666ff'], [0.75, '#663399'], [1, '#660099']],
+						width:8
+					}
+				},
+
+				splitLine:{
+					length:15,
+					lineStyle:{
+						color:'auto',
+					}
+				},
+
+				axisTick:{								// 坐标轴上的小分隔线
+					splitNumber:2,
+					length:10,
+					lineStyle:{
+						color:'auto'
+					}
+				},
+				
+				data:[{value:1.2, name:'water'}]
+			}
+		],
+	};
+
+	chart.setOption(options);
+
+	// var start_value = 0;
+	// var end_value = 200;
+	// while(start_value<end_value){
+	// 	setInterval(function(){
+	// 		options.series[0].data = [{value: value , name: 'km/h'}];	
+	// 	}, 100);
+	// 	chart.setOption(options);
+	// 	start_value += 1;
+	// }
+
+	// var value = 10;
+	// setInterval(function(){
+	// 	options.series[0].data = [{value: value , name: 'km/h'}];
+	// 	if(value>=250){
+	// 		value=0;
+	// 	}else{
+	// 		value+=10;
+	// 	}
+	// 	chart.setOption(options)
+	// }, 1000);
+</script>
+
+</html>
