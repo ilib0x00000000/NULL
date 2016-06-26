@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>柱状图</title>
+	<meta charset="utf-8" />
+	<script type="text/javascript" src="echarts.js"></script>
+	<style type="text/css">
+		#container{
+			margin: auto;
+			width: 1000px;
+			height: 500px;
+			background-color: #ccc;
+		}
+	</style>
+</head>
+<body>
+<div id="container"></div>
+</body>
+
+<script type="text/javascript">
+	/**
+	 * 柱状图:
+	 * 
+	 */
+	var chart = echarts.init(document.getElementById("container"));
+
+	var xAxisData = [];
+	var data1 = [];
+	var data2 = [];
+
+	for(var i = 0 ; i < 100 ; i++){
+		xAxisData.push('类目'+i);
+		data1.push(5*(Math.sin(i/5)*(i/5-10)+i/6));
+		data2.push(5*(Math.cos(i/5)*(i/5-10)+i/6));
+	}
+
+	var options = {
+		title:{
+			text:'柱状图动画延迟'
+		},
+
+		grid:{},
+
+		tooltip:{
+			trigger:'item'
+		},
+
+		legend:{
+			data:['bar', 'bar2'],
+			align:'left',
+		},
+
+		xAxis:{
+			data:xAxisData,
+			silent:false,
+			splitLine:{
+				show:false
+			}
+		},
+
+		color:['#ff9933', '#3366ff', '#ccff33'],
+
+		yAxis:{
+			type:'value',
+			name:'值',
+			nameGap:15,
+			min:-50,
+			max:150
+		},
+
+		series:[
+			{
+				name:'bar',
+				type:'bar',
+				data:data1,
+				animationDelay:function(idx){
+					return idx*10;
+				}
+			},
+
+			{
+				name:'bar2',								// 用于legend的图裂筛选
+				type:'bar', 								// 指明柱状图
+				legendHoverLink:true, 						// 是否启用图例hover时的联动高亮
+				coordinateSystem:'cartesian2d', 			// 该系列使用的坐标系
+				label:{
+					normal:{
+						show:false,
+						// position:'inside',
+						// formatter:'{c}'
+					},
+					emphasis:{
+						show:false,
+						position:'inside',
+						formatter:'{c}',
+						textStyle:{}
+					}
+				},
+				itemStyle:{
+					normal:{
+						barBorderColor:'#000', 				// 柱条的描边颜色
+						barBorderWidth:0, 					// 柱条的描边宽度
+						barBorderRadius:0, 					// 柱形边框圆角半径
+						/**
+						 * shadowBlur
+						 * shadowColor
+						 * shadowOffsetX
+						 * shadowOffsetY
+						 */
+						opacity:0.8							// 图形透明度
+					}
+				},
+				data:data2, 								// 数据
+
+				animation:true, 							// 是否开启动画
+				animationDuration:1000, 					// 初始动画的时长
+				animationEasing:'elasticOut', 				// 初始动画的缓动效果
+				animationDelay:function(idx){
+					return idx*10 + 100;
+				}
+			}
+		],
+
+		animation:true, 									// 是否开启动画
+
+		animationDuration:1000, 							// 初始动画的时长
+		animationEasing:'elasticOut', 						// 初始动画的缓动效果
+		animationDelay:0, 									// 初始动画的延迟
+
+		animationDurationUpdate:300, 						// 数据更新动画的时长
+		animationEasingUpdate:'cubicOut', 					// 数据更新动画的缓动效果
+		animationDelayUpdate:function(idx){ 				// 数据更新动画的延迟
+			return idx *5;
+		}
+	};
+
+	chart.setOption(options);
+</script>
+
+</html>
