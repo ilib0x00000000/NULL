@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>柱状图</title>
+	<meta charset="utf-8" />
+	<script type="text/javascript" src="echarts.js"></script>
+	<style type="text/css">
+		#container{
+			margin: auto;
+			width: 1200px;
+			height: 500px;
+			background-color: #ccc;
+		}
+	</style>
+</head>
+<body>
+	<div id="container"></div>
+</body>
+
+<script type="text/javascript">
+	var chart = echarts.init(document.getElementById("container"));
+
+
+	function produce(){
+		var res = [];
+		for(var i = 0 ; i < 31 ; i++){
+			res.push(Math.floor(Math.random()*100));
+		}
+		return res;
+	}
+
+	var res1 = produce();
+	var res2 = produce();
+	var res3 = produce();
+	var res4 = produce();
+	var res5 = produce();
+	var res6 = produce();
+	var res7 = produce();
+	var res8 = produce();
+	var res9 = produce();
+	var res10 = produce();
+	var res11 = produce();
+	var res12 = produce();
+	var res13 = produce();
+	var res14 = produce();
+	var res15 = produce();
+	var res16 = produce();
+	var res17 = produce();
+	var res18 = produce();
+	var res19 = produce();
+	var res20 = produce();
+	var res21 = produce();
+	var res22 = produce();
+	var res23 = produce();
+	var res24 = produce();
+	var res25 = produce();
+	var res26 = produce();
+	var res27 = produce();
+	var res28 = produce();
+	var res29 = produce();
+	var res30 = produce();
+
+	/**
+	 * timeline组件:提供在多个option之间进行切换、播放等功能
+	 * 在配置选项中，有两个配置选项，第一个是通用配置，用于设置整体图形的框架，共用设置
+	 * 第二个选项，是数据选项，用于动态数据的展示
+	 * 
+	 */
+	var option = {
+		baseOption:{
+			timeline: { 					// timeline组件，用于多个option之间的变换
+				show:true, 					// 是否显示timeline组件
+				type:'slider', 				// 目前只支持该选项
+	            axisType: 'category', 		// 轴的类型
+	            autoPlay: true,  			// 是否自动播放
+	            playInterval: 1000, 		// 播放的速度
+	            data: [ 					// 轴上显示的坐标变化
+	                '2002-01-01','2003-01-01','2004-01-01',
+	                {
+	                    value: '2005-01-01',
+	                    tooltip: {
+	                        formatter: '{b} GDP达到一个高度'
+	                    },
+	                    symbol: 'diamond',
+	                    symbolSize: 16
+	                },
+	                '2006-01-01', '2007-01-01','2008-01-01','2009-01-01','2010-01-01',
+	                {
+	                    value: '2011-01-01',
+	                    tooltip: {
+	                        formatter: function (params) {
+	                            return params.name + 'GDP达到又一个高度';
+	                        }
+	                    },
+	                    symbol: 'diamond',
+	                    symbolSize: 18
+	                },
+	            ],
+	            label: {
+	                formatter : function(s) {
+	                    return (new Date(s)).getFullYear();
+	                }
+	            }
+	        },
+
+			title: {
+	            subtext: '数据来自国家统计局'
+	        },
+	        tooltip: {},
+	        legend: {
+	            x: 'right',
+	            data: ['第一产业', '第二产业', '第三产业', 'GDP', '金融', '房地产'],
+	            selected: {
+	                'GDP': false, '金融': false, '房地产': false
+	            }
+	        },
+	        calculable : true,
+	        grid: {
+	            top: 80,
+	            bottom: 100
+	        },
+	        xAxis: [
+	            {
+	                'type':'category',
+	                'axisLabel':{'interval':0},
+	                'data':[
+	                    '北京','\n天津','河北','\n山西','内蒙古','\n辽宁','吉林','\n黑龙江',
+	                    '上海','\n江苏','浙江','\n安徽','福建','\n江西','山东','\n河南',
+	                    '湖北','\n湖南','广东','\n广西','海南','\n重庆','四川','\n贵州',
+	                    '云南','\n西藏','陕西','\n甘肃','青海','\n宁夏','新疆'
+	                ],
+	                splitLine: {show: false}
+	            }
+	        ],
+	        yAxis: [
+	            {
+	                type: 'value',
+	                name: 'GDP（亿元）',
+	                max: 100
+	            }
+	        ],
+	        series: [
+	            {name: '第一产业', type: 'bar'},
+	            {name: '第二产业', type: 'bar'},
+	            {name: '第三产业', type: 'bar'},
+	        ]
+		},
+
+		/*上面的基础配置中的data的长度就是options中元素的个数*/
+		options:[
+			{
+				title:{text:'2002年数据'},
+				series:[
+					{data:res1},
+					{data:res2},
+					{data:res3},
+				]
+			},
+			{
+				title:{text:'2003年数据'},
+				series:[
+					{data:res4},
+					{data:res5},
+					{data:res6},
+				]
+			},
+			{
+				title:{text:'2004年数据'},
+				series:[
+					{data:res7},
+					{data:res8},
+					{data:res9},
+				]
+			},
+			{
+				title:{text:'2005年数据'},
+				series:[
+					{data:res10},
+					{data:res11},
+					{data:res12},
+				]
+			},
+			{
+				title:{text:'2006年数据'},
+				series:[
+					{data:res13},
+					{data:res14},
+					{data:res15},
+				]
+			},
+			{
+				title:{text:'2007年数据'},
+				series:[
+					{data:res16},
+					{data:res17},
+					{data:res18},
+				]
+			},
+			{
+				title:{text:'2008年数据'},
+				series:[
+					{data:res19},
+					{data:res20},
+					{data:res21},
+				]
+			},
+			{
+				title:{text:'2009年数据'},
+				series:[
+					{data:res22},
+					{data:res23},
+					{data:res24},
+				]
+			},
+			{
+				title:{text:'2010年数据'},
+				series:[
+					{data:res25},
+					{data:res26},
+					{data:res27},
+				]
+			},
+			{
+				title:{text:'2011年数据'},
+				series:[
+					{data:res28},
+					{data:res29},
+					{data:res30},
+				]
+			},
+		]
+	};
+
+	chart.setOption(option);
+</script>
+
+</html>
