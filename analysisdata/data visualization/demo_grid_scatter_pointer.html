@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>index</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="static/echarts.js"></script>
+	<style type="text/css">
+		#container{
+			margin: auto;
+			width: 1000px;
+			height: 500px;
+			background-color: #ccc;
+		}
+	</style>
+</head>
+<body>
+	<div id="container"></div>
+</body>
+
+<script type="text/javascript">
+	var chart = echarts.init(document.getElementById("container"));
+	
+	var options = {
+		title:{
+			text:'氨氮化合物排放记录',
+			subtext:'数据来自天池官方(仅供参考)'
+		},
+		tooltip:{
+			trigger:'axis',
+			axisPointer:{
+				type:'cross'
+			}
+		},
+		grid:{
+			top:'15%'
+		},
+		xAxis:{
+			type:'value',
+			splitLine:{
+				show:false
+			},
+			scale:true,
+			splitNumber:5,
+			min:115,
+			max:130,
+			axisLabel:{
+				formatter:function(value){
+					return value+'s';
+				}
+			}
+		},
+		yAxis:{
+			type:'value',
+			splitLine:{show:false},
+			min:30,
+			max:50,
+			name:'纬度',
+		},
+		series:[
+			{
+				name:'',
+				type:'scatter',
+				symbolSize:function(value){
+					return value[2];
+				},
+				data:[
+					{ value:[116.770556, 35.506389, 14.2] },
+					{ value:[116, 35, 14] },
+					{ value:[117.112602, 34.79348, 16.1] },
+					{ value:[116.4015, 35.0206, 0] },
+					{ value:[116.2821, 35.122, 19.4] },
+					{ value:[117.192222, 35.643056, 32.3] },	
+					{ value:[117.1435, 35.4019, 15.5] },
+					{ value:[115.051046, 35.036037, 78.1] },
+					{ value:[116.431375, 35.255225, 7.67] },
+					{ value:[115.88, 34.96, 32.7] },
+					{ value:[117, 39, 54.6] },
+					{ value:[116.658, 35.458, 10.8] },	
+					{ value:[116, 35, 31] },
+					{ value:[117.01, 35.57, 32.3] },
+					{ value:[116.857222, 35.52175, 7.03] },
+					{ value:[116.735278, 35.568889, 59.3] },
+					{ value:[116, 35, 6.2] },
+					{ value:[116.93111, 35.37944, 14.4] },
+					{ value:[116, 35, 7] },
+					{ value:[118.3957, 36.5933, 38.5] },
+					{ value:[116.035, 36.1188, 32.7] },
+					{ value:[116, 35, 21.3] },								
+				]
+			}
+		]
+	};
+	
+	chart.setOption(options);
+</script>
+
+</html>
