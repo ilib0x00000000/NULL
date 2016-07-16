@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>index</title>
+	<meta charset="utf-8" />
+</head>
+<body>
+
+</body>
+
+<script type="text/javascript">
+	'use strict'
+	/**
+	 * 对象
+	 * 对象的键如果包含特殊字符，则需要使用''括起来，并且使用['key']访问
+	 *
+	 * 如果对象的键不是使用''括起来的，则不能使用['key']访问
+	 *
+	 * 如果想通过[]访问键值对，则键必须使用''括起来
+	 */
+	
+	var dict = {
+		name : '张三',
+		'age': 20,
+		sex  : false
+	};
+
+	/*访问对象的各个键值对*/
+	alert(dict.name);
+	alert(dict.age);
+	alert(dict.sex);
+
+	alert(dict['name']);
+	alert(dict['age']);
+	alert(dict['sex']);
+
+	/*判断一个对象是否有某个属性，使用hasOwnProperty()方法*/
+	alert(dict.hasOwnProperty('name'));
+	alert(dict.hasOwnProperty('address'))
+	
+
+	// 使用高级for循环迭代json对象，返回的是键的字符串形式
+	for(var  i in dict){
+		alert(typeof i);
+		alert(dict[i])
+	}
+	
+	/**
+	 * ES6新特性Map/Set
+	 */
+	
+	// 初始化一个Map，需要一个二维数组或者空
+	var map1 = new Map([['mack',90], ['rose',67], ['steve',83]]);
+	var map2 = new Map();
+
+	map2.set('张三', 999);
+
+	alert(map2.has('李四'));
+	alert(map2.has('张三'));
+
+
+	alert(map2.get('张三'))
+	alert(map1.get('rose'));
+	
+	var ary = ['a','b', 'c' , 'd'];
+	var set = new Set();
+	set.add('a');
+	set.add('b');
+	set.add('c');
+	set.add('d');
+	set.add('e');
+
+
+	set.forEach(function(element, index){
+		alert(index);
+	});
+
+	/**
+	 * 数组的forEach回调函数的参数依次是element, index, array
+	 * Set的forEach回调函数的参数依次是element, element, set
+	 * Map的forEach回调函数的参数依次是value,  key,  map
+	 */
+	
+	var map = new Map([['a',1], ['b',2], ['c',3]]);
+
+	map.forEach(function(value, key, map){
+		// alert(key);
+	});
+
+	var test = function(a, ...rest){
+		alert(a);
+		alert(rest.join('----------'));
+	};
+
+	test('abcde', 1, 2, 3, 4, 5);
+
+
+	/**
+	 * 数组的方法：map/reduce/filter/sort
+	 *
+	 * map()接受一个函数，作用于数组的每一个元素，并返回一个新的数组
+	 * reduce()接受一个函数，作用于数组并返回一个结果
+	 * filter()接受一个函数，作用于数组的每一个元素，若得到true，则保留，否则丢弃
+	 * sort()接受一个函数
+	 */
+
+	var array = [10, 20, 30, 40];
+
+	var t = array.map(function(x){
+		return x/10;
+	});
+
+	var s = array.reduce(function(a, b){
+		return a+b;
+	});
+
+	alert(s);
+	alert(t);
+	
+
+	/**
+	 * 生成器 generator
+	 * 定义： function* genera_name(params){
+	 * 			... yield ...
+	 * }
+	 *
+	 * g = genera_name(params)
+	 * 调用g.next()的时候返回一个json对象，
+	 * {value:..., done:false/true}
+	 */
+	
+	function* genera_name(x){
+		var i = 0;
+		var t = 1;
+		var temp = null;
+
+		while(i<x){
+			yield i;
+			temp = t;
+			t = t+i;
+			i = temp;
+		}
+	}
+
+	var g = genera_name(100);
+
+	var dicts = g.next();
+
+	while(!dicts.done){
+		alert(dicts.value);
+		dicts = g.next();
+	}
+
+</script>
+
+</html>
+
