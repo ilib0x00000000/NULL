@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>index</title>
+	<meta charset="utf-8" />
+</head>
+<body>
+
+</body>
+
+<script type="text/javascript">
+	'use strict'
+	/**
+	 * typeof var
+	 * typeof获取对象的类型，返回一个字符串
+	 */
+	
+	typeof 123;						// number
+	typeof NaN;						// number
+	typeof 'string';				// string
+	typeof true; 					// boolean
+	typeof undefined; 				// undefined
+	typeof Math.abs;				// function
+	typeof null; 					// object 判断null使用 ===null判断
+	typeof []; 						// object 判断数组使用 Array.isArray(arr)
+	typeof {}; 						// object
+	
+	/**
+	 * 类型转换：
+	 * 转换成整型： 	parseInt()
+	 * 转换成浮点型：parseFloat()
+	 * 转换成字符串：toString()
+	 */
+	
+	var a = '132';						// string
+	var b = '192.168';					// string
+	var aint = parseInt(a);				// number
+	var bfloat = parseFloat(b);			// number
+
+	var dict = {
+		name:'张三',
+		age:12,
+		sex:'male'
+	};
+
+	dict.toString(); 				// object
+
+	/**
+	 * 日期对象
+	 */
+	var now = new Date(); 			//
+
+	var year = now.getFullYear();
+	var month = now.getMonth() + 1;
+	var date = now.getDate();
+	var hours = now.getHours();
+	var minutes = now.getMinutes();
+	var seconds = now.getSeconds();
+
+	var time = year + '-' + month + '-' + date + '  ' + hours + ':' + minutes + ':' + seconds;
+	// alert(time);					// '216-07-17 00:00:00'
+	
+	// 创建一个指定日期对象
+	// 注意，月份的数字比实际月份小1
+	var sd = new Date(2020, 3, 15, 8, 0, 0);
+	var time_string = sd.getFullYear() + '-' + sd.getMonth() + '-' + sd.getDate() + '  ' + 
+	sd.getHours() + ':' + sd.getMinutes() + ':' + sd.getSeconds();
+
+	// alert(time_string);
+	
+
+	/**
+	 * JSON对象
+	 * 数据类型：
+	 * 			number
+	 *    		boolean
+	 *      	string
+	 *       	null
+	 *        	array
+	 *         	object
+	 * 序列化与反序列化：
+	 * 			JSON.stringify(): 将一个JavaScript中的对象转变成JSON对象(字符串)
+	 * 			JSON.parse():     将字符串的JSON对象转成JavaScript中的对象
+	 */
+	
+	var dicts = {
+		name:'张三',
+		age:20,
+		sex:'male'
+	};
+
+	var pickle1 = JSON.stringify(dicts);
+	var pickle2 = JSON.stringify(dicts, null, '\t');		// 第二个参数控制键值对的筛选
+
+	alert(pickle2);
+	var depickle = JSON.parse(pickle1);
+
+	for(var i in depickle){
+		alert(i + ':' + depickle[i]);
+	}
+
+	
+</script>
+
+</html>
