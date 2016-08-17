@@ -1,8 +1,19 @@
 #/usr/bin/env  python
 #-*- coding:utf-8 -*-
 
+'''
+以下代码测试环境：
+	RAM:    5.7 GiB
+	OS:     Ubuntu 14.04 LTS 64bit
+	CPU:    Intel® Core™ i3-2350M CPU @ 2.30GHz × 4 
+	Python: Python 2.7.6
+'''
+
+import Queue
 import socket
 import signal
+import select
+import threading
 import multiprocessing
 
 
@@ -62,12 +73,85 @@ def process_response():
 
 
 
-if __name__ == '__main__':
-	# simple_response() # Time taken for tests:   5.608 seconds
-	process_response()
+'''
+线程池:构建一个队列（线程安全）将接受到的连接请求全部放到队列中
+多线程的程序主要是维护队列
+'''
+def handler2(queue):
+	client = queue.get()
+	data = client.recv(BUFFER_SIZE)
+	client.send(response)
+	client.close()
+def multithread_response():
+	server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	server.bind((HOST, PORT))
+	server.listen(1024)
+
+	# 构建一个队列
+	queue = Queue.Queue()
+	processor = 4 # CPU的核数
+
+	# 创建同CPU核数一样多的线程个数
+	for i in range(0, processor):
+		thread = threading.Thread(target=handler2, args=(queue,))
+		thread.daemon = True
+		thread.start()
+
+	while True:
+		client, client_addr = server.accept()
+		queue.put(client)
+
 
 
 '''
-插曲：在使用ab测压时发生错误：apr_pollset_poll: The timeout specified has expired (70007)
+epoll:
+'''
+def epoll_response():
+	server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	server.setblocking(False)
+	server.bind((HOST,PORT))
+	server.listen(1024)
+
+	READ_ONLY = select.EPOLLIN | select.EPOLLPRI
+	epoll = select.epoll()
+	epoll.register(server, READ_ONLY)
+
+	timeout = 60
+
+	fd_to_socket = {server.fileno():server}
+
+	while True:
+		events = epoll.poll(timeout)
+		for fd,flag in events:
+			sock = fd_to_socket[fd]
+			if flag & READ_ONLY:
+				if sock is server:
+					conn, client_address = sock.accept()
+					conn.setblocking(False)
+					fd_to_socket[conn.fileno()] = conn
+					epoll.register(conn, READ_ONLY)
+				else:
+					request = sock.recv(BUFFER_SIZE)
+					sock.send(response)
+					sock.close()
+					del fd_to_socket[fd]
+
+
+
+if __name__ == '__main__':
+	# simple_response()         
+		# 10W: Time taken for tests:   5.608 seconds 	
+		# 100W:Time taken for tests:   137.060 seconds
+
+	# process_response()        # 在使用ab测压时发生错误：apr_pollset_poll: The timeout specified has expired (70007)
+	
+	# multithread_response()  	# 在使用ab测压时发生错误：apr_pollset_poll: The timeout specified has expired (70007)
+	
+	epoll_response() 		    
+		# 10W: Time taken for tests:   6.998 seconds 	
+		# 100W:Time taken for tests:   114.429 seconds
+
+
+'''
 ab -n 100000 -c 4 -k http://localhost:50000/
 '''
