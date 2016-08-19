@@ -24,3 +24,45 @@
         void _Exit(int status)
         #include<unistd.h>
         void _exit(int status)
+
+
+函数getrlimit和setrlimit
+    每个进程都有一组资源限制，可以使用getrlimit和setrlimit查询和修改
+
+    #include<sys/resource.h>
+    int getrlimit(int resource, struct rlimit *rlptr)
+    int setrlimit(int resource, const struct rlimit *rlptr)
+
+    struct rlimit
+    {
+        rlim_t rlim_cur;    // 软限制值
+        rlim_t rlim_max;    // 硬限制值
+    }
+
+    在更改资源限制时，要遵循如下规定：
+        1.任何一个进程的软限制值都可以更改为小于或等于硬限制值
+        2.任何一个进程的硬限制值都可以更改为大于或等于软限制值，但是这种更改是不可逆的
+        3.只有root用户可以提高硬限制值
+
+进程控制：
+    #include<unistd.h>
+    pid_t getpid(void);     返回调用进程的进程ID
+    pid_t getppid(void);    返回调用进程的父进程ID
+    uid_t getuid(void);     返回进程的实际用户ID
+    uid_t geteuid(void);    返回进程的有效用户ID
+    gid_t getgid(void);     返回进程的实际组ID
+    gid_t getegid(void);    返回进程的有效组ID
+
+函数fork：
+    一个现有的进程可以调用fork函数创建一个新的进程
+    #include<unistd.h>
+    pid_t fork(void);
+    子进程返回0，父进程返回子进程ID，若出错，返回-1
+
+    由fork创建的新进程被称为子进程，fork函数被调用一次，返回两次，在子进程中返回0，
+    在父进程中返回子进程的ID。子进程是父进程的副本，和父进程共享正文段（代码段），
+    但是在fork之后一般跟着exec，所以现在的实现并不执行一个父进程数据段、栈和堆的完
+    全副本。作为替代，使用了写时复制技术。这些区域由父进程和子进程共享，而且内核将他
+    们的权限设置为只读，如果父进程和子进程任何一个视图修改这些区域，则内核只为修改区
+    域的那块内存制作一个副本。
+
