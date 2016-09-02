@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+
+    <style type="text/css">
+        #container{
+            width: 100%;
+            height: 100%;
+        }
+        #detail_window{
+            width: 200px;
+            height: 80%;
+            float: right;
+            margin-top: auto;
+            border: 2px solid #fff;
+            background-color: #ccc;
+        }
+    </style>
+
+</head>
+<body style="height: 100%; margin: 0">
+    <div id="container">
+        <div id="detail_window"></div>
+    </div>
+</body>
+
+<script type="text/javascript" src="static/echarts.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script type="text/javascript" src="data/site.js"></script>
+
+
+<script type="text/javascript">
+    var chart = echarts.init(document.getElementById("container"));
+
+    var options = null;
+
+    chart.setOption(option = {
+        animation: false,
+        bmap: {
+            center: [121.55,31.260658],
+            zoom: 10,
+            roam: true
+        },
+        legend:{
+            right:'right',
+            selectedMode:'single',
+            selected:{
+                '网点分布图':true,
+                '商家分布图':false,
+            },
+            data:[
+                {name:'网点分布图'},
+                {name:'商家分布图'}
+            ]
+        },
+        series: [
+            {
+                name: '网点分布图',
+                type: 'scatter',
+                symbol: 'pin',
+                symbolSize: 14,
+                coordinateSystem: 'bmap',
+                data: site_wang,
+            },
+            {
+                name:'商家分布图',
+                type:'scatter',
+                symbol:'pin',
+                itemStyle:{
+                    normal:{
+                        color:'#4004e0',
+                    }
+                },
+                symbolSize:14,
+                coordinateSystem:'bmap',
+                data: site_shop,
+            }
+        ]
+    });
+</script>
+
+</html>
