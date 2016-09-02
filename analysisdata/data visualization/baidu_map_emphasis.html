@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+
+    <style type="text/css">
+        #container{
+            width: 100%;
+            height: 100%;
+            float: left;
+        }
+        #box{
+            position: absolute;
+            left: 1%;
+            width: 25%;
+            height: 80%;
+            float: left;
+            margin-top: 5%;
+            -moz-border-radius: 15px; 
+            -webkit-border-radius: 15px; 
+            border-radius:15px; 
+            border: 2px solid #fff;
+            background-color: #ccc;
+            opacity: 0.3;
+        }
+    </style>
+
+</head>
+<body style="height: 100%; margin: 0">
+    <div id="container"></div>
+    <div id="box"></div>
+</body>
+
+<script type="text/javascript" src="static/echarts.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script type="text/javascript" src="data/site.js"></script>
+
+
+<script type="text/javascript">
+    var chart = echarts.init(document.getElementById("container"));
+
+    var options = null;
+
+    chart.setOption(option = {
+        animation: false,
+        bmap: {
+            center: [121.45,31.260658],
+            zoom: 12,
+            roam: true,
+            mapStyle: {
+              'styleJson': [
+                {
+                  'featureType': 'water',
+                  'elementType': 'all',
+                  'stylers': {
+                    'color': '#031628'
+                  }
+                },
+                {
+                  'featureType': 'land',
+                  'elementType': 'geometry',
+                  'stylers': {
+                    'color': '#000102'
+                  }
+                },
+                {
+                  'featureType': 'highway',
+                  'elementType': 'all',
+                  'stylers': {
+                    'visibility': 'off'
+                  }
+                },
+                {
+                  'featureType': 'arterial',
+                  'elementType': 'geometry.fill',
+                  'stylers': {
+                    'color': '#000000'
+                  }
+                },
+                {
+                  'featureType': 'arterial',
+                  'elementType': 'geometry.stroke',
+                  'stylers': {
+                    'color': '#0b3d51'
+                  }
+                },
+                {
+                  'featureType': 'local',
+                  'elementType': 'geometry',
+                  'stylers': {
+                    'color': '#000000'
+                  }
+                },
+                {
+                  'featureType': 'railway',
+                  'elementType': 'geometry.fill',
+                  'stylers': {
+                    'color': '#000000'
+                  }
+                },
+                {
+                  'featureType': 'railway',
+                  'elementType': 'geometry.stroke',
+                  'stylers': {
+                    'color': '#08304b'
+                  }
+                },
+                {
+                  'featureType': 'subway',
+                  'elementType': 'geometry',
+                  'stylers': {
+                    'lightness': -70
+                  }
+                },
+                {
+                  'featureType': 'building',
+                  'elementType': 'geometry.fill',
+                  'stylers': {
+                    'color': '#000000'
+                  }
+                },
+                {
+                  'featureType': 'all',
+                  'elementType': 'labels.text.fill',
+                  'stylers': {
+                    'color': '#857f7f'
+                  }
+                },
+                {
+                  'featureType': 'all',
+                  'elementType': 'labels.text.stroke',
+                  'stylers': {
+                    'color': '#000000'
+                  }
+                },
+                {
+                  'featureType': 'building',
+                  'elementType': 'geometry',
+                  'stylers': {
+                    'color': '#022338'
+                  }
+                },
+                {
+                  'featureType': 'green',
+                  'elementType': 'geometry',
+                  'stylers': {
+                    'color': '#062032'
+                  }
+                },
+                {
+                  'featureType': 'boundary',
+                  'elementType': 'all',
+                  'stylers': {
+                    'color': '#465b6c'
+                  }
+                },
+                {
+                  'featureType': 'manmade',
+                  'elementType': 'all',
+                  'stylers': {
+                    'color': '#022338'
+                  }
+                },
+                {
+                  'featureType': 'label',
+                  'elementType': 'all',
+                  'stylers': {
+                    'visibility': 'off'
+                  }
+                }
+              ]
+            }
+        },
+        legend:{
+            right:'right',
+            selectedMode:'single',
+            selected:{
+                '网点分布图':true,
+                '商家分布图':false,
+            },
+            data:[
+                {name:'网点分布图'},
+                {name:'商家分布图'}
+            ]
+        },
+        series: [
+            {
+                name: '网点分布图',
+                type: 'scatter',
+                symbol: 'pin',
+                symbolSize: 14,
+                coordinateSystem: 'bmap',
+                data: site_wang,
+            },
+            {
+                name:'商家分布图',
+                type:'scatter',
+                symbol:'pin',
+                itemStyle:{
+                    normal:{
+                        color:'#4004e0',
+                    }
+                },
+                symbolSize:14,
+                coordinateSystem:'bmap',
+                data: site_shop,
+                itemStyle:{
+                    normal:{
+                        color:'#ddb926'
+                    }
+                }
+            }
+        ]
+    });
+</script>
+
+</html>
