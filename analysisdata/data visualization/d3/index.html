@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>index</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+
+<body>
+	<svg id="container">
+		<!-- <rect></rect>
+		<rect></rect> -->
+	</svg>
+
+	<div id="container"></div>
+</body>
+
+<script type="text/javascript">
+	var width = 200;
+	var height = 200;
+
+	var dataset = [1.2, 2.3, 0.9, 1.5, 3.3];
+
+	var min = d3.min(dataset);
+	var max = d3.max(dataset);
+
+	var linear = d3.scale.linear()			// 定义一个线性函数
+					.domain([min, max])		// 定义域
+					.range([0, 300])		// 值域
+
+	var p = d3.select('#container')
+				.attr('width', width)
+				.attr('height', height)
+				.data(dataset)
+				.enter()
+				.append('p')
+				.text(function(d, i){
+					return linear(d);
+				})
+</script>
+
+<script type="text/javascript">
+	var width = 300;
+	var height = 300;
+
+	// 创建一个svg画布
+	var svg = d3.select('#container')
+				.attr('width', width)
+				.attr('height', height);
+
+	/**
+	 * 矩形的属性，常用的有4个
+	 * x: 矩形左上角的x坐标
+	 * y: 矩形左上角的y坐标
+	 * width：矩形的宽度
+	 * height：矩形的高度
+	 */
+	
+	var dataset = [250, 210, 307, 190];
+
+	var rectHeight = 25;
+
+	svg.selectAll('rect')
+		.data(dataset)
+		.enter()
+		.append('rect')
+		.attr('x', 20)
+		.attr('y', function(d, i){
+			return i * rectHeight;
+		})
+		.attr('width', function(d, i){
+			return d;
+		})
+		.attr('height', rectHeight-2)
+		.attr('fill', 'steelblue');
+
+	/**
+	 * 自动生成与数据集等长度的样式
+	 * svg.selectAll(x)
+	 * 		.data(dataset)	// 绑定数据集
+	 * 		.enter()		// 指定选择集的enter部分
+	 * 		.append(layout)	// 样式
+	 */
+</script>
+
+<script type="text/javascript">
+// 绑定数据：datum()/data()
+	// var str = 'China';
+
+	// var p = d3.select('body')
+	// 			.selectAll('p')
+
+	// p.datum(str);
+
+	// p.text(function(d,i){
+	// 	return '第 ' + i + ' 个元素绑定的数据是： ' + d;
+	// });
+</script>
+
+<script type="text/javascript">
+	// var dataset = [
+	// 	'I like dogs', 
+	// 	'I like cats', 
+	// 	'I like snakes'];
+
+	// var p = d3.select('body')
+	// 		.selectAll('p');
+
+	// p.data(dataset);
+	// p.text(function(d,i){
+	// 	return d;
+	// });
+</script>
+
+</html>
