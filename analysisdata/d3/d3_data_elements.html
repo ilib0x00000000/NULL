@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>index</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="d3.v3.min.js"></script>
+	<style type="text/css">
+		#container{
+			width: 1000px;
+			height: 600px;
+			margin: auto;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<p></p>
+		<p></p>
+		<p></p>
+	</div>
+
+	<div id="footer">
+		<span>aaaa</span>
+		<span>bbbb</span>
+		<span>cccc</span>
+	</div>
+</body>
+
+<script type="text/javascript">
+	// var svg = d3.select('#container')
+	// 			.append('svg')
+	// 			.attr('width', 1000)
+	// 			.attr('height', 500)
+
+	/**
+	 * 数据集与元素之间的对应关系：
+	 * 1.数据集的长度 == 元素的个数
+	 * 2.数据集的长度 > 元素的个数
+	 * 3.数据集的长度 < 元素的个数
+	 *
+	 * 1.数据集的长度与元素的个数一样时，所有的数据都有元素对应，这部分元素称之为update
+	 * 2.当数据集的长度大于元素的个数时，这时d3会补上缺少的元素，这部分空的元素称之为enter
+	 * 3.当数据集的长度小于元素的个数时，则会有一些元素没有数据绑定，这部分元素称之为exit
+	 *
+	 * update和enter:当对应的元素不足时，即数据集长度大于对应元素个数，需要添加元素(append)
+	 * update和exit: 当对应的元素的个数大于数据集的长度时，一般需要删除(remove)
+	 */
+	var dataset = [1, 3, 4, 2, 6];
+
+	var p = d3.select('#container')
+				.selectAll('p')
+
+	var update = p.data(dataset); 		// 获得数据集与元素匹配的长度
+	var enter = update.enter(); 		// 获得enter
+
+	update.text(function(d, i) { return 'update' + d; })
+	enter.append('p')
+		// .attr('transform', 'translate(20,330)')
+		.text(function(d, i) { return 'enter' + d; })
+</script>
+
+<script type="text/javascript">
+	/**
+	 * d3中数据集与元素的对应，
+	 * 对应部分叫做：update
+	 * 元素不够时，缺少的部分叫做：enter
+	 * 元素个数多于数据的长度时，多出的部分叫做：exit
+	 */
+	var dataset = [10];
+
+	var span = d3.select('#footer')
+				.selectAll('span')
+
+	var update = span.data(dataset);
+	update.text(function(d, i) { return 'update' + d; })
+
+	var exit = update.exit();
+	exit.remove();
+</script>
+
+</html>
