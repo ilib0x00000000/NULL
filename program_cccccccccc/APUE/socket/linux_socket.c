@@ -71,6 +71,9 @@ int main(int argc, char const *argv[])
 	struct sockaddr_in linux_addr;		// linux下地址格式
 	struct sockaddr_in client_addr;		// 客户端的地址
 	struct socklen_t *len;
+	pthread_t   pthid;					// 创建的线程ID
+	socklen_t size = INET_ADDRSTRLEN;
+
 
 	// 创建socket
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -109,12 +112,20 @@ int main(int argc, char const *argv[])
 		return -1;
 	}
 
+	printf("wait client connect......\n");
 	while(1)
 	{
 		// connect_no = accept(sockfd, (struct sockaddr *)&client_addr, len);
-		connect_no = accept(sockfd, NULL, NULL);
+		connect_no = accept(sockfd, (struct sockaddr *)&client_addr, &size);
 		if(connect_no)
-			printf("client connected.....\n");
+		{
+			printf("client connecting ....\n");
+			if(pthread_create(&pthid, NULL, new_thread, (void *)&client_addr) != 0)
+			{
+				perror("create thread error");
+				exit(-1);
+			}
+		}
 	}
 
 	return 0;
@@ -150,7 +161,20 @@ int main(int argc, char const *argv[])
 
 void *new_thread(void *arg)
 {
+	char buffer[INET_ADDRSTRLEN];
+	const char *ip;
+	struct sockaddr_in *client_addr = (struct sockaddr_in *)arg;		// 客户端地址
 
+	ip = inet_ntop(AF_INET, &client_addr->sin_addr, buffer, INET_ADDRSTRLEN);
+	if(ip == NULL)
+	{
+		printf("解析客户端地址错误\n");
+		exit(11);
+	}else{
+		printf("client %s: connectted", ip);
+	}
+
+	return 0;
 }
 
 /**
