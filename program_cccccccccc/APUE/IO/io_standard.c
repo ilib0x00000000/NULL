@@ -43,18 +43,19 @@ int main(int argc, char const *argv[])
 	FILE *cp;
 	char buffer[BUFFERSIZE];
 
-	fp = fopen("io.c", "rb");		// 只读打开一个文件
+	fp = fopen("base_io.c", "rb");		// 只读打开一个文件
 	if(fp == NULL)
 	{
 		perror("open file error");
 		exit(-1);
 	}
 
-	mode = fwide(fp, 1);			// 打开文件时就设置了流的定向
-	if(mode > 0)
-		printf("宽定向\n");
-	if(mode < 0)
-		printf("字节定向\n");
+	/* 不要设置流的定向 */
+	// mode = fwide(fp, 0);			// 打开文件时就设置了流的定向
+	// if(mode > 0)
+	// 	printf("宽定向\n");
+	// if(mode < 0)
+	// 	printf("字节定向\n");
 
 	cp = fopen("test.txt", "a+b");
 	if(cp == NULL)
@@ -62,22 +63,12 @@ int main(int argc, char const *argv[])
 		perror("create new file error");
 		exit(-1);
 	}
-	// mode = fwide(cp, 1);
 
 	while(fgets(buffer, BUFFERSIZE, fp) != NULL)
 	{
 		if(fputs(buffer, cp) == EOF)
 			printf("write error\n");
 	}
-	// else
-	// {
-	// 	if(ferror(fp))
-	// 		printf("read error\n");
-	// 	else if(feof(fp))
-	// 		printf("eof\n");
-	// 	else
-	// 		printf("unknown error\n");
-	// }
 
 }
 
