@@ -6,7 +6,7 @@ typedef struct runner
 	void *(*callback)(void *arg);
 	void *arg;
 	struct runner *next;
-}runner;
+}thread_runner;
 
 /**
  * 线程池数据结构
@@ -21,6 +21,53 @@ typedef struct
 	thread_runner  *runner_head;   // 线程池中所有等待任务的头指针
 	thread_runner  *runner_tail;   // 线程池中所有等待任务的尾指针
 }thread_pool;
+
+/*创建线程时，各线程执行的函数，主要是等待任务池的条件变量信号*/
+void *run(void *arg);
+void *run(void *arg)
+{
+	thread_pool *pool = (thread_pool *)arg;
+	thread_runner *runner = NULL;
+
+	while(1)
+	{
+		pthread_mutex_lock(&(pool->mutex));   // 加锁
+		#ifdef DEBUG
+		printf("run -> locked\n");
+		#endif
+
+		while(pool->runner_head == NULL && !pool->shutdown)
+		{
+			// 如果等待队列为0并且线程池未销毁，则处于阻塞状态
+			pthread_cond_wait(&(pool->cond), &(pool->mutex));
+		}
+
+		if(pool->shutdown)  // 如果线程池已经销毁
+		{
+			pthread_mutex_unlock(&(pool->mutex));  // 解锁
+			#ifdef DEBUG
+			printf("run -> unlocked and thread exit\n");
+			#endif
+			pthread_exit(NULL);
+		}
+
+		runner = pool->runner_head;
+		pool->runner_head = runner->next;
+
+		pthread_mutex_unlock(&(pool->mutex));   // 解锁
+		#ifdef DEBUG
+		printf("run -> unlocked\n");
+		#endif
+
+		(runner->callback)(runner->arg);        // 调用回调函数
+
+		#ifdef DEBUG
+		printf("run -> runned and free runner\n");
+		#endif
+	}
+
+	pthread_exit(NULL);
+}
 
 /*初始化线程池*/
 void threadpool_init(thread_pool *pool, int max_thread_size);
