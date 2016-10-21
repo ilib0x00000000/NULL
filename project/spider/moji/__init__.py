@@ -10,6 +10,7 @@ http://tianqi.moji.com/pm/china------------有31个省市的pm数据
 
 import re
 import requests
+import multiprocessing
 
 
 HOST = 'http://tianqi.moji.com/pm/china'
@@ -59,11 +60,46 @@ def build_urls(root):
 
 
 # 2. 使用进程池，每个进程去爬一个省
+def get_data(proc, city):
+	'''每个进程爬取一个省
+	proc是省份列表中的
+	city是所有省及地区的映射map
+	'''
+	# 每个进程要爬的url列表
+	urls = city[proc] 
+	for url in urls:
+		try:
+			resp = requests.get(url)
+			if resp.status_code != 200:
+				resp = requests.get(url)
+				if resp.status_code != 200:
+					# 写进日志
+					return None
+
+			# 处理返回的文本
+			pattern = r'<ul class="clearfix">(.+)</ul>'   # 所有数据区域对应的正则
+			regex = re.compile(pattern, re.UNICODE)
+			dataarea = regex.findall(resp.text)
+
+			single = r'<span>\d+</span>'    # 在已得到的数据区域中切出对应的数据
+			datalists = re.compile(single, re.UNICODE).findall(dataarea[0])
+			print datalists
+		except:
+			print 'error'
+
+
+
+
 
 if __name__ == '__main__':
 	provinces, city = build_urls(HOST)
 
+	pool = multiprocessing.Pool(processes = 31)
+	for item in provinces:
+		pool.apply_async(get_data, (item, city))
 
+	pool.close()
+	pool.join()
 
 
 '''
