@@ -89,8 +89,8 @@ def crawler_xupt():
 
 	# 2. data
 	values={}
-	values['txtUserName']  = '02145011'
-	values['TextBox2']     = 'q965838596'
+	values['txtUserName']  = os.getenv(username)
+	values['TextBox2']     = os.getenv(password)
 	values['txtSecretCode']= raw_input('请输入验证码： ')
 	data = urllib.urlencode(values)
 
