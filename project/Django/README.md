@@ -106,10 +106,54 @@ $ python manage.py runserver
 ## 模板template
 
 
+## MVC
+## MTV
+
+## 创建一个应用
+[参考](http://blog.chinaunix.net/uid-29578485-id-5751415.html)
+注意：
+    在v1.10.1之前的settings.py中的INSTALLED_APPS添加一个应用时:'site.app_name'
+    在v1.10.1之后的settings.py中的INSTALLED_APPS添加一个应用时:'app_name'
+
+添加应用之后检查一下是否有错误
+v1.10.1+:$ python manage.py check
+v<1.10.1:$ python manage.py validate
+
+## M(Model)模型
+[Django模型---数据库模块](http://www.cnblogs.com/pycode/p/db-middleware.html)
 
 
 
 
+## 站点管理--admin
 
+
+## Request对象
+    URL信息：
+        request.path:        除域名外的请求路径，以正斜杠开头
+        request.get_host():  主机名
+        request.get_full_path(): 请求路径，可能包含查询字符串
+        request.is_secure(): 是否通过HTTPS访问
+
+    META信息：
+        request.META是一个Python字典，包含了请求的headers信息，例：
+        request.META['HTTP_USER_AGENT']
+        request.META['HTTP_REMOTE_ADDR']
+        request.META['HTTP_ACCEPT_ENCODING']
+        request.META['HTTP_ACCEPT']
+
+        META是一个字典，当访问字典中的键但是键不存在时会触发异常
+
+    GET对象：
+        GET对象是一个类字典对象，包含了get请求携带的查询键值对，例：
+        request.GET['name']
+        request.GET['item']
+
+    POET对象：
+        POST对象是一个类字典对象，包含了POST请求携带的查询键值对，例：
+        request.POST['username']
+        request.POST['password']
+
+## 表单
 
 
