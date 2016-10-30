@@ -155,5 +155,30 @@ v<1.10.1:$ python manage.py validate
         request.POST['password']
 
 ## 表单
+[参考](http://www.tuicool.com/articles/qMzUnq)
+
+
+
+## FORM类
+Django带有一个form库，称为django.forms
+可以为HTML中的每个form创建一个Form对象，该对象继承于forms.Form
+
+Django的forms框架可以处理：
+    * HTML显示
+    * 数据校验
+    * 数据清理
+    * 表单错误重现
+
+Form的field类表现校验逻辑
+组件(widget)表现显示逻辑
+
+当为表单创建一个类后，除了在创建时可以调用Django自带的校验方式，也可以编写自定义的数据字段校验方式
+
+## 部署Django
+***
+
+## 其他链接
+[Django在线教程](http://www.ziqiangxuetang.com/django/django-deploy.html)
+
 
 
