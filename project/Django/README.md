@@ -177,6 +177,19 @@ Form的field类表现校验逻辑
 ## 部署Django
 ***
 
+
+## 模板系统
+***
+* 使用Template/Context组合,Template创建一个带模板变量和模板标签的Template对象,Context创建一个关键字字典,
+与模板中的变量/标签映射,最后调用t.render(c)返回一个相应
+* 使用Template/RequestContext组合,当在构建一个Context对象时,有时需要使用request对象中的键值对,RequestContext
+对象就是为了解决这个问题
+* 使用render_to_response/RequestContext组合,更减少代码量
+
+
+
+
+
 ## 其他链接
 [Django在线教程](http://www.ziqiangxuetang.com/django/django-deploy.html)
 
