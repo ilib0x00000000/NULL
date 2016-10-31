@@ -188,7 +188,18 @@ Form的field类表现校验逻辑
 
 
 
-
+## 安装配置git
+$ git --global....
+$ git --global....
+$ ...
+$ ...
+$ git clone https://github.com/ilib0x00000000/NULL.git
+$ git remote add origin https://github.com/ilib0x00000000/NULL.git(如果这部失败,且提示仓库已存在)
+	$ git remote rm origin
+	$ git remote add origin https://github.com/ilib0x00000000/NULL.git
+$ git add filename
+$ git commit -m "..."
+$ git push -u origin master
 
 ## 其他链接
 [Django在线教程](http://www.ziqiangxuetang.com/django/django-deploy.html)
