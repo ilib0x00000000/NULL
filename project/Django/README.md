@@ -5,6 +5,8 @@
 
 Server version: Apache/2.4.7 (Ubuntu)
 
+下载Apache: sudo apt-get install apache2
+
 启动Apache： /etc/init.d/apache2 start
 Apache配置文件：/etc/apache2/apache2.conf    
                 /etc/apache2/conf-enabled  
@@ -100,10 +102,84 @@ $ python manage.py runserver
 
 
 ## 视图views
+视图由一群函数组成:所有的函数的第一个参数都是HttpRequest对象,且返回一个HttpResponse对象
+
+
 
 ## URLconf
+            request(HttpRequest)
+                v
+            settings(指定URLconf文件所在的位置)
+                v
+            urls(根据url映射的视图函数,调用对应的视图函数)
+                v
+            views(视图函数所在的文件,每个视图函数的第一个参数都是Request,且返回一个HttpResponse对象)
+                v
+            HttpResponse
 
-## 模板template
+总结:
+    1. 有请求进来
+    2. Django通过settings中的ROOT_URLCONF配置来决定根URLconf
+    3. Django在URLconf中的所有模式中搜索到第一个匹配request url的条目
+    4. 如果找到匹配,将调用相应的视图函数
+    5. 视图函数返回一个HttpResponse对象
+    6. Django将HttpResponse对象转换成一个适合的HTTP response,并返回
+
+
+## 模板Template
+    * 模板变量
+    * 模板标签
+    * 过滤器
+
+#### 模板的使用
+    1. 可以用原始的模板字符串创建一个Template对象,Django同样支持用指定模板文件路径的方式来创建Template对象
+    2. 调用模板对象的render方法,并且传入一套变量context,他将返回一个基于模板的展现字符串,模板中的变量和标签会被context值替换
+
+注:实例化一个Template对象时,可能会抛出django.template.TemplateSyntaxError异常
+
+    1. 写模板
+    2. 创建Template对象
+    3. 创建Context对象
+    4. 调用render方法
+
+一个模板可以由多个Context对象渲染,只进行一次Template对象的实例化,多次调用render方法渲染.
+
+模板中的变量也可以使用字典/对象,只要传递的关键字与模板中的变量名相同即可,查找顺序如下:
+    * {{ var.name }}  var是一个字典,name是字典的一个键
+    * {{ var.year }}  var是一个对象,year是对象的属性
+    * {{ var.upper }} var是一个对象,upper是对象的方法
+    * {{ var.2 }}     var是一个列表,2是列表的下标
+
+当模板中的变量调用方法时,如果该方法抛出一个异常,除非该异常有一个silent_variable_failure属性,且值为True,
+否则异常将会被传播,如果异常被传播,模板里的指定变量会被置为空字符串
+
+#### 模板标签for
+属性:
+    1. forloop.counter
+    2. forloop.counter0
+    3. forloop.revcounter
+    4. forloop.revcounter0
+    5. forloop.first--------布尔值
+    6. forloop.last---------布尔值
+    7. forloop.parentloop
+
+#### 其他模板标签
+{% if %}/{% else %}/{% endif %}
+{% for in %}/{% endfor %}
+{% ifequal %}/{% endifequal %}
+{% ifnotequal %}/{% endifnotequal %}
+
+#### 模板中的注释
+单行注释: {# ... #}
+多行注释: {% comment %}...{% endcomment %}
+
+### 过滤器
+模板过滤器:在变量被显示前修改它的值的一个简单方法,使用管道符
+如果过滤器有参数,跟随冒号之后并且总是以双引号包含
+{{ var|filter_function:"para1,para2" }}
+
+
+
 
 
 ## MVC
@@ -201,8 +277,10 @@ $ git add filename
 $ git commit -m "..."
 $ git push -u origin master
 
+[参考](http://www.cnblogs.com/hzg1981/p/5899364.html)
+
+
+
 ## 其他链接
 [Django在线教程](http://www.ziqiangxuetang.com/django/django-deploy.html)
-
-
-
+[Atom插件推荐](https://www.zhihu.com/question/39938370)
