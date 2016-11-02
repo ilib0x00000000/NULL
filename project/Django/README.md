@@ -2,6 +2,10 @@
 ***
 [Python+Apache搭建server](http://blog.csdn.net/edhroyal/article/details/9423803)
 [参考](http://blog.csdn.net/ggicci/article/details/8203222)
+[Django1.5中文版教程：](https://django-chinese-docs.readthedocs.io/en/latest/intro/index.html)
+	https://github.com/7sDream/django-intro-zh
+
+[Django项目----搭博客：](http://www.jianshu.com/p/3bf9fb2a7e31#)
 
 Server version: Apache/2.4.7 (Ubuntu)
 
@@ -101,12 +105,104 @@ $ python manage.py runserver
 6. Django将HttpResponse对象转换成一个合适的HTTP response，以Web page显示出来
 
 
+
+## 模型model
+***
+模型（model）：[参考](http://www.jianshu.com/p/32a8a06da678#)
+
+* 确保数据库安装配置好
+* 确保python-mysql库安装好
+
+1. 数据库配置
+	settings.py
+        'ENGINE'   
+        'NAME'    
+        'USER'     
+        'PASSWORD'
+        'HOST'    
+        'PORT'     
+
+2. 创建应用APP
+	$ python manage.py startapp book(app_name)
+	在settings.py中的INSTALLED_APPS中添加应用
+	book/
+		|----__init__.py
+		|----models.py
+		|----tests.py
+		|----views.py
+        |----apps.py
+        |----admin.py
+        |----migrations/
+                    |-----__init__.py
+
+3. 创建模型
+	django.db.models模块
+	在book/models.py中创建模型
+	class ModelDemo(models.Model):
+		name    = models.CharField(max_length=30)
+		address = models.CharField(max_length=50)
+		city    = models.CharField(max_length=60)
+		country = models.CharField(max_length=50)
+		website = models.URLField()
+		state_province = models.CharField(max_length=30)
+
+4. 同步数据库(以下两步在修改模型配置后都必须执行)
+	$ python manage.py makemigrations
+	$ python manage.py migrate
+
+5. 打开book/admin.py，写入一下内容：
+	`
+		from django.contrib import admin
+		from .models import ModelDemo
+
+		admin.site.register(ModelDemo)
+	`
+
+6. 创建管理员账户：
+	$ python manage.py createsuperuser
+	# 输入账户密码
+
+7. 数据库的操作
+
+
+## Django中数据库API调用
+***
+1. 根据应用中的models模块的模型定义,实例化出一个对象
+2. 调用对象的save方法,将一条记录写入数据库
+如果,在定义数据库的模型时,没有定义一个主键,Django会为每个模型自动添加一个主键id
+
+例,在应用的models定义一个模型:
+`
+class ModelClass(django.db.models.Model):
+    ...
+`
+注:为调试方便,每个Model对象都应该有一个__unicode__方法
+
+向数据库写入记录:
+    将记录写进数据库
+    mc = ModelClass(...)
+    mc.save()
+
+    或:
+    m = ModelClass.objects.create(...)
+
+读取数据库的记录:
+    读取所有数据: ModelClass.objects.all()
+    筛选部分数据: ModelClass.objects.filter(...)
+    查找单个数据: ModelClass.objects.get(...)
+    对查询数据排序: ModelClass.objects.order_by()
+    对查找到的数据更新: ModelClass.objects.get(...).update(...)
+    删除一条数据: ModelClass.objects.delete()
+    删除所有数据: ModelClass.objects.all().delete()
+
+
 ## 视图views
+***
 视图由一群函数组成:所有的函数的第一个参数都是HttpRequest对象,且返回一个HttpResponse对象
 
 
-
 ## URLconf
+***
             request(HttpRequest)
                 v
             settings(指定URLconf文件所在的位置)
@@ -178,6 +274,27 @@ $ python manage.py runserver
 如果过滤器有参数,跟随冒号之后并且总是以双引号包含
 {{ var|filter_function:"para1,para2" }}
 
+### 模板加载
+            request
+                v
+            django根据settings中的TEMPLATE_DIRS找到模板所在目录
+                v
+            view视图函数读取模板目录中的文件
+                v
+            返回一个HttpResponse对象
+
+模板使用到的函数:
+    django.template.Template()
+    django.template.Context()
+    django.template.loader.get_template()
+    django.template.loader.select_template()
+    django.shortcuts.render_to_response()
+
+## 在view视图函数中使用模板
+1. 设置模板文件所在的路径, settings中的TEMPLATES.DIRS
+2. 加载模板文件get_template()/select_template()
+3. 渲染模板文件,COntext(),调用render()函数
+4. 返回Response
 
 
 
@@ -279,8 +396,14 @@ $ git push -u origin master
 
 [参考](http://www.cnblogs.com/hzg1981/p/5899364.html)
 
-
+## 异常
+模板:
+    TemplateSyntaxError
+    TemplateDoesNotExist
+数据库API:
+    ModelClass.DoesNotExist
 
 ## 其他链接
-[Django在线教程](http://www.ziqiangxuetang.com/django/django-deploy.html)
+[Django在线教程](http://www.ziqiangxuetang.com/django/django-deploy.html)\
+
 [Atom插件推荐](https://www.zhihu.com/question/39938370)
