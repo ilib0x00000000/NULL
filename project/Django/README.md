@@ -105,11 +105,10 @@ $ python manage.py runserver
 6. Django将HttpResponse对象转换成一个合适的HTTP response，以Web page显示出来
 
 
-
-## 模型model
+## M(Model)模型
 ***
 模型（model）：[参考](http://www.jianshu.com/p/32a8a06da678#)
-
+[Django模型---数据库模块](http://www.cnblogs.com/pycode/p/db-middleware.html)
 * 确保数据库安装配置好
 * 确保python-mysql库安装好
 
@@ -199,8 +198,6 @@ class ModelClass(django.db.models.Model):
 ## 视图views
 ***
 视图由一群函数组成:所有的函数的第一个参数都是HttpRequest对象,且返回一个HttpResponse对象
-
-
 ## URLconf
 ***
             request(HttpRequest)
@@ -221,8 +218,114 @@ class ModelClass(django.db.models.Model):
     5. 视图函数返回一个HttpResponse对象
     6. Django将HttpResponse对象转换成一个适合的HTTP response,并返回
 
+pro_name/
+		|
+		|---manage.py
+		|
+		|
+		|---pro_name/
+		|			|
+		|			|---__init__.py    ()
+		|			|---settings.py    (Django的配置文件)
+		|			|---urls.py        (URLconf)
+		|			|---wsgi.py        (部署Django时使用)
+		|
+		|---book/
+		|		|
+		|		|---__init__.py
+		|		|---models.py
+		|		|---tests.py
+		|		|---views.py
+		|		|---admin.py
+		|		|---app.py
+		|		|---urls.py
+		|		|---template/
+		|		|---static/
+		|		|---migration/
+		|					|
+		|					|--__init__.py
+		|
+		|
+		|---blog/
+		|		|
+		|		|---__init__.py
+		|		|---models.py
+		|		|---tests.py
+		|		|---views.py
+		|		|---admin.py
+		|		|---app.py
+		|		|---urls.py
+		|		|---template/
+		|		|---static/
+		|		|---migration/
+		|					|
+		|					|--__init__.py
+		|		
+		|
+		|---other_app/
+		|			|
+		|			|---__init__.py
+		|			|---models.py
+		|			|---tests.py
+		|			|---views.py
+		|			|---admin.py
+		|			|---app.py
+		|			|---urls.py
+		|			|---template/
+		|			|---static/
+		|			|---migration/
+		|						|
+		|						|--__init__.py
+
+
+URLconf:
+1. URL直接映射view视图函数
+`
+	from book import view
+	urlpatterns = [
+		(r'^$',   view.func),
+		(r'book/list', view.list),
+	]
+`
+2. URL映射的是完整的函数路径字符串
+`
+	urlpatterns = [
+		(r'^$', 'book.view.func'),
+		(r'books', 'book.view.list'),
+		(r'blogs', 'blog.view.list'),
+	]
+`
+3. URL中使用命名正则表达式
+`
+	urlpatterns = [
+		(r'book/(?p<name>.*?)', book.view.query),		# query接受一个查询书名的参数name
+		(r'blog/(?p<subject>.*?)', blog.view.all),		# all函数接受一个叫subject的参数
+	]
+`
+4. URL映射中传递指定变量
+`
+	urlpatterns = [
+		(r'book/\w+', book.view.query, {'name':'head first'}),		# query函数中会接受一个name关键字参数
+		(r'blog/\w+', blog.view.query, {'subject':'python'}),		# query函数中会接受一个subject关键字参数
+	]
+`
+5. URL映射中集成APP的URLconf
+`
+	urlpatterns = [
+		(r'^book/', include('pro_name.book.urls')),		# 根URLconf会将请求url截掉/book/之后传递给pro_name/book/urls.py中的URLconf
+		(r'^blog/', include('pro_name.blog.urls')),		# 根URLconf会将请求url截掉/blog/之后传递给pro_name/blog/urls.py中的URLconf
+	]
+`
+
+URLconf注意事项：
+	* 如果在一个url映射中同时使用命名正则和字典参数，且两者的变量名冲突，则优先使用字典参数
+	* 越特殊的url（需要单独处理的）要放在URLconf的最上面
+	* 根URLconf在向应用的URLconf传递url时，是会先把根URLconf中的部分截掉的
+
+
 
 ## 模板Template
+***
     * 模板变量
     * 模板标签
     * 过滤器
@@ -297,31 +400,8 @@ class ModelClass(django.db.models.Model):
 4. 返回Response
 
 
-
-
-## MVC
-## MTV
-
-## 创建一个应用
-[参考](http://blog.chinaunix.net/uid-29578485-id-5751415.html)
-注意：
-    在v1.10.1之前的settings.py中的INSTALLED_APPS添加一个应用时:'site.app_name'
-    在v1.10.1之后的settings.py中的INSTALLED_APPS添加一个应用时:'app_name'
-
-添加应用之后检查一下是否有错误
-v1.10.1+:$ python manage.py check
-v<1.10.1:$ python manage.py validate
-
-## M(Model)模型
-[Django模型---数据库模块](http://www.cnblogs.com/pycode/p/db-middleware.html)
-
-
-
-
-## 站点管理--admin
-
-
 ## Request对象
+***
     URL信息：
         request.path:        除域名外的请求路径，以正斜杠开头
         request.get_host():  主机名
@@ -347,11 +427,12 @@ v<1.10.1:$ python manage.py validate
         request.POST['username']
         request.POST['password']
 
+
 ## 表单
+***
+[参考](http://www.jianshu.com/p/5664dd79c0ba)
 [参考](http://www.tuicool.com/articles/qMzUnq)
-
-
-
+[参考](http://www.jianshu.com/p/7795783979da#)
 ## FORM类
 Django带有一个form库，称为django.forms
 可以为HTML中的每个form创建一个Form对象，该对象继承于forms.Form
@@ -363,9 +444,57 @@ Django的forms框架可以处理：
     * 表单错误重现
 
 Form的field类表现校验逻辑
+    * CharField()
+    * DateField()
+    * IntegerField()
+
+    Field的构造参数:
+        * Field.required
+        * Field.label
+        * Field.help_text
+        * Field.error_messages
+        * Field.widget
+        * Field.max_length
+        * Field.min_length
+
 组件(widget)表现显示逻辑
+    * forms.Select()
+    * forms.TextInput()
+    * forms.PasswordInput()
+    * forms.NumberInput()
+    * forms.EmailInput()
+    * forms.URLInput()
+    * forms.DateInput()
+    * forms.DateTimeInput()
+    * forms.CheckboxInput()
+    * forms.RadioSelect()
+    * forms.FileInput()
+
+    widget组件的构造参数:
+        * attrs
 
 当为表单创建一个类后，除了在创建时可以调用Django自带的校验方式，也可以编写自定义的数据字段校验方式
+在创建的form类中,为需要自定义校验方式的字段写一个函数,该函数是以clean_开头,后面是需要校验的字段名
+
+
+创建一个form对象
+`
+class DefinedForm(django.forms.Form):
+    ...
+`
+
+df = DefinedForm({...})
+
+检查实例是否有效:
+    df.is_valid()
+如果实例是有错误的:
+    df.errors
+将Form提交的数据转成相应的Python数据:
+    df.cleaned_data
+
+
+
+
 
 ## 部署Django
 ***
