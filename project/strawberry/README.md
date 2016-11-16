@@ -60,7 +60,7 @@ strawberry/
          |           |---home.html
 
 ## 数据库配置
-修改环境变量:$ sudo vim /etc/profile
+修改环境变量:`$ sudo vim /etc/profile`
 在配置文件的最后添加
 `
 export DATABASE_NAME=****
@@ -70,7 +70,10 @@ export DATABASE_HOST=******
 export DATABASE_PORT=****
 `
 
-使环境变量生效: $ source /etc/profile
+使环境变量生效: `$ source /etc/profile`
+
+## 安装Python-MySQL模块
+***
 
 
 # 开始Django之旅
@@ -88,10 +91,13 @@ export DATABASE_PORT=****
 
 ## 2.安装应用
 ***
+`
 $ python manage.py startapp article
+`
 在strawberry/strawberry/settings.py中安装应用
 
 将安装的应用都写入数据库
+$ python manage.py makemigrations
 $ python manage.py migrate
 +----------------------------+
 | Tables_in_strawberry       |
@@ -131,5 +137,77 @@ class Artical:
     10. blog_text: 正文
 
 定义一个Model,修改strawberry/article/models.py文件
+`
 class Artical(models.Model):
     ...
+`
+
+
+创建完模型之后，要在strawberry/article/admin.py中注册该模型，以便后台管理：
+`
+from .models import DefineModel
+
+admin.site.register(DefineModel)
+`
+
+# 静态文件的部署
+***
+
+
+    strawberry/
+         |----README.md
+         |----requirements.txt
+         |----manage.py
+         |----strawberry/
+         |              |----__init__.py
+         |              |----settings.py
+         |              |----urls.py
+         |              |----wsgi.py
+         |              |----local_setting.py    # 数据库配置
+         |----article/
+         |           |----__init__.py
+         |           |----admin.py
+         |           |----apps.py
+         |           |----models.py
+         |           |----tests.py
+         |           |----views.py
+         |           |----templates/
+         |           |             |----article/
+         |           |             |           |----index.html
+         |           |             |           |----other.html
+         |           |----static/
+         |           |          |----article/
+         |           |          |           |----index.css
+         |           |          |           |----other.css
+         |           |          |           |----images/
+         |           |----templatetags/
+         |           |              |---__init__.py
+         |           |              |---custom_markdown.py   # 实现markdown功能
+         |----templates/
+         |           |---base.html
+         |           |---home.html
+
+
+
+修改strawberry/article/templates/article/index.html文件：
+`
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'article/style.css' %}" />
+`
+
+
+strawberry/article/static/article/index.css文件：
+`
+li a{
+    color: green;
+}
+
+body{
+    background: white url("images/Untitled.jpg") no-repeat right bottom;
+}
+`
+
+
+
+
+
