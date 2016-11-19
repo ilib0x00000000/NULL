@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 import hashlib
+import manager
 
 # Create your models here.
 class Article(models.Model):
@@ -18,6 +19,11 @@ class Article(models.Model):
 	blog_love    = models.PositiveIntegerField(default=0)   # 点赞数
  	blog_reward  = models.FloatField(default=0.0)           # 打赏
 	blog_text    = models.TextField()                       # 博客正文
+
+	# 设置模型的管理器
+	objects = models.Manager()  # 默认管理器
+	python = manager.Python()   # 自定义管理器
+	linux  = manager.Linux()    # 自定义管理器
 
 	def save(self, *args, **kwargs):
 		'''重写父类的save()方法
