@@ -1,0 +1,43 @@
+{% extends "article/base.html" %}
+
+{% block content %}
+
+<div class="blog" width="60%";><!--博客区-->
+    {% for blog in blogs %}
+        <div class="jumbotron">
+            <h2>{{ blog.blog_title }}</h2>
+            <hr />
+            <p class="blog-text">{{ blog.blog_preview }}</p>
+            <p><a class="btn btn-primary" href="blog/?page={{ blog.blog_id }}" role="button">Read more</a></p>
+            <p class="blog-info">
+                浏览量:{{ blog.blog_read }}&nbsp&nbsp
+                分类:{{ blog.blog_category }} &nbsp&nbsp
+                日期:{{ blog.blog_datetime }}
+            </p>
+            <botton class="button-test">按钮</botton>
+        </div>
+    {% endfor %}
+
+    {% if has_preview %}
+        <p>上一页</p>
+    {% endif %}
+
+    {% if has_next %}
+        <p>下一页</p>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+
+<style type="text/css">
+    .jumbotron{
+        position:relative;
+    }
+
+    .button-test{
+        position: absolute;
+        top: 10%;
+        left:50%;
+    }
+</style>
