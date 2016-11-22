@@ -41,6 +41,7 @@ class HttpRequest
     * session: 一个既可读又可写的类似于字典的对象，表示当前的会话。
     * urlconf: 不是由Django自身定义的，但是如果其他代码设置了它，Django就会读取它。
     * resolver_match: 一个Resolver
+    * upload_handlers: 文件上传处理器
 方法：
     * get_host(): 根据从HTTP_X_FORWARDED_HOST和HTTP_HOST头部信息返回请求的原始主机。
     * get_full_path(): 返回path，如果可以将加上查询字符串
@@ -58,8 +59,130 @@ class HttpRequest
     * xreadlines():
     这几个方法实现类文件的接口用于读取HttpRequest实例。
 
+## HttpResponse对象
+***
+class HttpResponse
+设置Response对象的头部：
+    response['Age'] = 20
+    response['Content-Disposition'] = 'attachment; filename="foo.xls"'
+
+Response对象的属性：
+    response.content
+    response.charset
+    response.status_code
+    response.reason_phrase
+    response.streaming
+    response.closed
+
+Response对象的方法：
+    * HttpResponse.__init__(content='', content_type=None, status=200,
+    reason=None, charset=None)
+    * HttpResponse.__setitem__(header, value)
+    * HttpResponse.__delitem__(header)
+    * HttpResponse.__getitem__(header)
+    * HttpResponse.has_header(header)
+    * HttpResponse.setdefault(header, value)
+    * HttpResponse.set_cookie(key, value='', max_age=None, expires=None, 
+    path='/', domain=None, secure=None, httponly=False)
+    * HttpResponse.set_signed_cookie(key, value, salt='', max_age=None, 
+    expires=None, path='/', domain=None, secure=None, httponly=True)
+    * HttpResponse.delete_cookie(key, path='/', domain=None)
+    * HttpResponse.write()
+    * HttpResponse.tell()
+    * HttpResponse.flush()
+    * HttpResponse.getvalue()
+    * HttpResponse.writable()
+    * HttpResponse.writelines(lines)
+
+HttpResponse的子类
+    * HttpResponseRedirect
+    * HttpResponsePermanentRedirect
+    * HttpResponseNotModified
+    * HttpResponseBadRequest
+    * HttpResponseNotFound
+    * HttpResponseForbidden
+    * HttpResponseNotAllowed
+    * HttpResponseGone
+    * HttpResponseServerError
+    * JsonResponse
+    * StreamingHttpResponse
+    * FileResponse
+
+
 ## QueryDict对象
 ***
+class QueryDict-----django.http.QueryDict
+在HttpRequest对象中，GET和POST属性是django.http.QueryDict的实例，它是一个自定义的类似
+字典的类，用来处理同一个键带有多个值。
+
+方法：
+* QueryDict.__init__(query_string=None, mutable=False, encoding=None)
+* QueryDict.__getitem__(key)
+* QueryDict.__setitem__(key, value)
+* QueryDict.__contains__(key)
+* QueryDict.get(key, default)
+* QueryDict.setdefault(key, default)
+* QueryDict.update(other_dict)
+* QueryDict.items()
+* QueryDict.iteritems()
+* QueryDict.iterlists()
+* QueryDict.values()
+* ...
+
+
+# TemplateResponse和SimpleTemplateResponse
+***
+标准的HttpResponse对象是静态的结构。在构造的时候提供一个渲染好的内容，但是当内容改变时却不能容易的完成相应的改变。然而，有时候允许装饰器或者中间件在响应构造之后修改它是很有用的。
+
+## SimpleTemplateResponse
+***
+属性：
+    * template_name: 渲染的模板的名称。接收一个与后端有关的模板对象、模板的名称或是一个
+    模板列表
+    * context_data: 渲染模板时用到的上下文数据，必须是一个dict
+    * rendered_content: 使用当前的模板和上下文数据渲染出来的响应内容
+    * is_rendered: 一个布尔值，表示响应内容是否已经渲染
+
+方法：
+* __init__(template, context=None, content_type=None, status=None, charset=None, using=None)
+    * template
+    * context
+    * content_type
+    * status
+    * charset
+    * using
+* resolve_context(context)
+    * context
+* resolve_template(template)
+    * template
+* add_post_render_callback()
+* render()
+
+
+## TemplateResponse对象
+***
+TemplateResponse是SimpleTemplateResponse的子类，而且能知道当前的HttpRequest
+方法：
+* __init__(request, template, context=None, content_type=None, status=None, current_app=None, charset=None, using=None)
+有三种情况会渲染TemplateResponse：
+    * 使用SimpleTemplateResponse.render()方法显示渲染TemplateResponse实例的时候
+    * 通过给request.content赋值显示设置响应内容的时候
+    * 传递给模板响应中间件之后，响应中间件之前
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
