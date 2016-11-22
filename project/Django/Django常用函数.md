@@ -4,6 +4,7 @@
     HttpResponseNotFound
     Http404(help_text)
     HttpResponseNotAllowed
+    HttpResponseRedict
 
 ## django.shortcuts
 ***
@@ -74,6 +75,34 @@ Vary头部，以使得缓存根据Accept-Encoding头来存储信息
 * vary.vary_on_cookie(func)
 * vary.vary_on_headers(*headers)
 可以用来基于特定的请求头部来控制缓存
+
+## django.template.response
+***
+* TemplateResponse
+
+
+## django.core.files
+***
+* File(file_object)
+    属性：
+    * name
+    * size
+    * file
+    * mode
+    方法：
+    * open()
+    * read()
+    * __iter__()
+    * chunks([chunk_size=None])
+    * multiple_chunks([chunk_size=None])
+    * write([content])
+    * close()
+* base.ContentFile(File)
+* images.ImageFile(file_object)
+    属性：
+    * width
+    * height
+    
 
 
 
