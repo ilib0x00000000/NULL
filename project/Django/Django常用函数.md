@@ -1,3 +1,19 @@
+## django.template.loader
+***
+* get_template(template_name[, dirs][, using])
+* select_template(template_name_list[, dirs][, using])
+异常：
+* django.template.TemplateDoesNotExist
+* django.Template.TemplateSyntaxError
+
+get_template()和select_template()函数返回一个Template对象
+Template.render(context=None, request=None)
+通过给定的context对该模板进行渲染
+如果提供了context，那么它必须是dict对象，如果没有提供，引擎将是用空context对模板进行渲染
+如果提供了request，必须使用HttpRequest对象，之后模板引擎会使它连同CSRF token一起在模板中可用。
+
+
+
 ## django.http
 ***
     HttpResponse
@@ -56,6 +72,12 @@
     * klass：获取该列表的一个Model、Manager或QuerySet实例
     * **kwargs: 查询的参数，格式应该可以被get()和filter()接受
 
+* render_to_string(template_name[, context][, context_instance][, request][, using])
+    * template_name: 模板名称列表
+    * context: 模板变量字典
+    * context_instance: 一个Context实例，或者是子类的实例
+    * request: HttpRequest是可选的，并且在整个模板渲染期都是可用的
+    * 
 
 ## django.views.decorators
 ***
@@ -75,6 +97,9 @@ Vary头部，以使得缓存根据Accept-Encoding头来存储信息
 * vary.vary_on_cookie(func)
 * vary.vary_on_headers(*headers)
 可以用来基于特定的请求头部来控制缓存
+
+* csrf_protect(): 装饰器，说明那个视图函数需要开启CSRF验证
+* csrf_exempt(): 装饰器，说明那个视图不需要开启CSRF验证
 
 ## django.template.response
 ***
@@ -102,7 +127,56 @@ Vary头部，以使得缓存根据Accept-Encoding头来存储信息
     属性：
     * width
     * height
-    
+* storage.Storage()
+
+## django.core.exceptions
+***
+* ObjectDoesNotExist()
+* FieldDoesNotExist()
+* MultipleObjectsReturned()
+* SuspiciousOperation()
+* PermissionDenied()
+* ViewDoesNotExist()
+* MiddlewareNotUsed()
+* ImproperlyConfigured()
+* FieldError()
+* ValidationError()
+
+## django.core.urlresolvers
+***
+* NoReverseMatch()
+
+## django.db
+***
+* Error()
+* InterfaceError()
+* DatabaseError()
+* DataError()
+* OperationalError()
+* IntegrityError()
+* InternalError()
+* ProgrammingError()
+* NotSupportedError()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
