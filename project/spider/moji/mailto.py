@@ -16,7 +16,7 @@ from email.header import Header
 from email.mime.text import MIMEText
 
 USERNAME    = '965838596@qq.com'
-AUTHTOKEN   = 'pgyqwrvmultdbbaf'
+AUTHTOKEN   = os.getenv('QQ_EMAIL_AUTH_TOKEN') or 'xxxx'
 SERVER_HOST = 'smtp.qq.com'               # QQ邮箱站点
 SERVER_PORT = 465                         # QQ邮箱服务端口
 
