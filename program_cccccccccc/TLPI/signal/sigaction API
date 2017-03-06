@@ -1,0 +1,60 @@
+#改变信号处置
+
+#include <signal.h>
+int sigaction(int sig, const struct sigaction *act, struct sigaction *oldact);
+                        返回值：若成功，返回0，若失败，返回-1
+
+sig的取值： 见命令 kill -l的输出
+真实sigaction定义:
+
+struct sigaction
+{
+        union{
+                void (*sa_handler)(int);
+                void (*sa_sigaction)(int, siginfo_t *, void *);
+        }__sigaction_handler;
+        sigset_t   sa_mask;
+        int        sa_flags;
+        void       (*sa_restorer)(void);
+};
+#define sa_handler    __sigaction_handler.sa_handler
+#define sa_sigaction  __sigaction_handler.sa_sigaction
+
+
+
+sa_handler参数：指定信号处理函数
+sa_mask参数： 定义一组信号，在调用由sa_handler所定义的处理器函数时将阻塞该组信号，此外，引发对处理器程序调用的
+                信号将自动添加到进程信号掩码中。
+sa_flags参数： 是一个位掩码，指定用于控制信号处理过程的各种选项。如下：
+        SA_NOCLDSTOP: 若sig为SIGCHLD信号，则当因接受一信号而停止或恢复某一子进程时，将不会产生此信号
+        SA_NOCLDWAIT: 若sig为SIGCHLD信号，则当子进程终止时不会将其转换成僵尸
+        SA_NODEFER: 捕获该信号时，不会在执行处理器程序时将该信号自动添加到进程掩码中
+        SA_ONSTACK: 针对此信号调用处理器函数时，将使用由sigaltstack()安装的备选栈
+        SA_RESETHAND: 当捕获该信号时，会在调用处理器函数之前将信号处置重置为默认值
+        SA_RESTART: 自动重启由信号处理器程序中断的系统调用
+        SA_SIGINFO: 调用信号处理程序时携带了额外参数，其中提供了关于信号的深入信息
+
+
+若指定act.sa_flags标志为SA_SIGINFO:
+则信号处理函数原型：
+void handler(int sig, siginfo_t *siginfo, void *ucontext);
+
+typedef struct{
+        int      si_signo;
+        int      si_code;
+        int      si_trapno;
+        union sigval si_value;
+        pid_t    si_pid;
+        uid_t    si_uid;
+        int      si_errno;
+        void    *si_addr;
+        int      si_overrun;
+        int      si_timerid;
+        long     si_band;
+        int      si_fd;
+        int      si_status;
+        clock_t  si_utime;
+        clock_t  si_stime;
+}siginfo_t;
+
+要获取<signal.h>对siginfo_t的声明，必须将特性测试宏_POSIX_C_SOURCE的值定义为大于或等于199309
