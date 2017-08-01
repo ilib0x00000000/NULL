@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+{% load cache %}
+
+<html>
+<head>
+	<title>test</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<h1>{{ time }}</h1>
+	<h1>{{ time }}</h1>
+
+	<!-- 局部缓存 -->
+	{% cache 5 test_html_time %}
+	<h1>{{ time }}</h1>
+	{% endcache %}
+</body>
+</html>

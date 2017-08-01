@@ -1,0 +1,58 @@
+{% extends 'user_base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}我的收藏- 慕学在线网{% endblock %}
+
+{% block custom_bread %}
+    <section>
+        <div class="wp">
+            <ul  class="crumbs">
+                <li><a href="{% url 'index' %}">首页</a>></li>
+                <li>个人中心></li>
+                <li>我的收藏</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+
+
+{% block right %}
+<div class="right" >
+        <div class="personal_des Releasecont">
+            <div class="head">
+                <h1>我的收藏</h1>
+            </div>
+        </div>
+        <div class="personal_des permessage">
+            <div class="head">
+                <ul class="tab_header messagehead">
+                    <li><a href="{% url 'user:lovein' %}?key=">课程机构</a> </li>
+                    <li><a href="{% url 'user:lovein' %}?key=teacher">授课教师 </a></li>
+                    <li class="active">公开课程</li>
+                </ul>
+            </div>
+
+            <div class="companycenter">
+                <div class="group_list brief">
+                    {% for obj in objs %}
+                    <div class="module1_5 box">
+                        <a href="{% url 'course:detail' obj.id %}">
+                            <img width="214" height="190" src="{{ MEDIA_URL }}{{ obj.image }}"/>
+                        </a>
+                        <div class="des">
+                            <a href="{% url 'course:detail' obj.id %}"><h2>{{ obj.name }}</h2></a>
+                            <span class="fl">时长：<i class="key">{{ obj.learn_times }}</i></span>
+                            <span class="fr">学习人数：{{ obj.students }}</span>
+                        </div>
+                        <div class="bottom">
+                            <span class="fl">{{ obj.teacher.org.name }}</span>
+                            <span class="delete-group fr jsDeleteFav_course" data-favid="{{ obj.id }}">{{ obj.id }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock %}

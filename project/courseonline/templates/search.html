@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+
+{% block title %}
+python_搜索_慕课网
+{% endblock %}	
+
+{% block custom_js %}
+	<script type="text/javascript">
+		eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('!4(){3 6=a;3 l=4(){3 b,e=9 y("(^| )"+"c=([^;]*)(;|$)");j(b=h.g.z(e)){k w(b[2])}x{k a}};3 8=4(t){3 f=l();3 7=9 o();7.A(7.d()+B*i*i*r);h.g="c="+t+";s="+7.M()+";N=/;L=O.m";j(t&&t!=f){Q.P.G()}};3 5=9 E();5.H=4(){K(6);6=a;8(0)};5.J=4(){8(1)};6=I(4(){5.n="";8(1)},F);5.n=\'R://p.u.m/p/v/q/D.C?t=\'+9 o().d()}()',54,54,'|||var|function|imgobj|timer|exp|setcookie|new|null|arr|IMCDNS|getTime|reg|_0|cookie|document|60|if|return|getcookie|com|src|Date|static|common|1000|expires||mukewang|img|unescape|else|RegExp|match|setTime|24|png|logo|Image|3000|reload|onload|setTimeout|onerror|clearTimeout|domain|toGMTString|path|imooc|location|window|http'.split('|'),0,{}))
+	</script>
+
+
+	<script type="text/javascript">
+		var OP_CONFIG={"module":"search","page":"index"};
+		var isLogin = 0;
+		var is_choice = "";
+		var seajsTimestamp="v=201707211144";
+		var _msg_unread = 0; 
+		var _not_unread = 0; 
+		var _cart_num = 0;
+	</script>
+
+	<script type="text/javascript" src="{% static 'js/mooc/push.js' %}"></script>
+	<script type="text/javascript" async="" src="{% static 'rt.js' %}"></script>
+	<script charset="utf-8" async="" src="{% static 'js/mooc/jquery.js' %}"></script>
+	<script charset="utf-8" async="" src="{% static 'js/mooc/seajs-text.js' %}"></script>
+	<script charset="utf-8" async="" src="{% static 'js/mooc/common.js' %}"></script>
+	<script charset="utf-8" async="" src="{% static 'js/mooc/string.js' %}"></script>
+	<script charset="utf-8" async="" src="{% static 'js/mooc/userinfo.js' %}"></script>
+	<script charset="utf-8" async="" src="{% static 'js/mooc/cart.js' %}"></script>
+	<script charset="utf-8" async="" src="{% static 'js/mooc/cookie.js' %}"></script>
+	<script charset="utf-8" async="" src="{% static 'js/mooc/suggest.js' %}"></script>
+	<script charset="utf-8" async="" src="{% static 'js/mooc/store.js' %}"></script>
+	<script charset="utf-8" async="" src="{% static 'js/mooc/json.js' %}"></script>
+	<script charset="utf-8" async="" src="{% static 'js/mooc/im.js' %}"></script>
+	<script charset="utf-8" async="" src="{% static 'js/mooc/index.js' %}"></script>
+	<script charset="utf-8" async="" src="{% static 'js/mooc/socket.io.min.js' %}"></script>
+	<script charset="utf-8" async="" src="{% static 'js/mooc/search.js' %}"></script>
+	<script charset="utf-8" async="" src="{% static 'js/mooc/moco.min.js.js' %}"></script></head>
+{% endblock %}
+
+
+{% block custom_css %}
+	<link rel="stylesheet" href="{% static 'css/mooc/moco.min.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'css/mooc/saved_resource.css' %}" type="text/css">
+{% endblock %}
+
+
+
+{% block content %}
+<div id="main">
+
+	<div class="search-main">
+		<div class="search-header">
+			<div class="search-form clearfix">
+				<i class="icon-search"></i>
+				<input type="text" class="search-form-ipt js-search-ipt" value="{{ keyword }}" placeholder="请输入想搜索的内容">
+				<span class="search-form-btn js-search-btn">搜索</span>
+				<ul class="search-area-prge js-search-area-prge"></ul>
+			</div>
+
+			<ul class="hot">
+				<li>热门搜索：</li>
+				<li><a href="?keyword=AngularJS" target="_blank">AngularJS</a></li>
+				<li><a href="?keyword=mysql" target="_blank">mysql</a></li>
+				<li><a href="?keyword=java" target="_blank">java</a></li>
+				<li><a href="?keyword=android" target="_blank">android</a></li>
+				<li><a href="?keyword=C" target="_blank">C</a></li>
+				<li><a href="?keyword=php" target="_blank">php</a></li>
+				<li><a href="?keyword=javascript" target="_blank">javascript</a></li>
+				<li><a href="?keyword=ajax" target="_blank">ajax</a></li>
+			</ul>
+		</div>
+		
+		<div class="search-body">
+			<div class="search-nav-warp">
+				<div class="search-nav" id="searchNav">
+					<a href="javascript:;" data-page="index" class="active">全站</a>
+					<a href="javascript:;" data-page="course">课程</a>
+					<a href="javascript:;" data-page="wenda">机构</a>
+					<a href="javascript:;" data-page="wenda">讲师</a>
+				</div>
+			</div>
+			<div class="search-related">
+				共找到 {{ total }} 个相关内容
+			</div>
+
+			<h2 class="search-title">课程</h2>
+			{% for course in courses %}
+			<div class="course-item clearfix">
+				<div class="course-item-left">
+					<a href="{% url 'course:detail' course.id %}" target="_blank">
+					<img src="{{ MEDIA_URL }}{{ course.image }}" width="210" height="120">
+					</a>				
+				</div>
+				<div class="course-item-right">
+					<div class="course-item-title">
+						<span class="type">[实战]</span>
+						<a href="{% url 'course:detail' course.id %}" target="_blank">{{ course.name }}</a>
+					</div>
+					
+					<div class="tag">
+						<strong>{{ course.students }}人学习</strong>
+					</div>
+					
+					<p class="content">
+						<span>课程简介：</span>{{ course.desc }}
+					</p>
+				</div>
+			</div>
+			{% endfor %}
+			<p class="href-warp"><a href="{% url 'search:all'  %}">更多课程搜索结果</a></p>
+
+			<h2 class="search-title">机构</h2>
+			{% for courseorg in courseorgs %}
+			<div class="course-item clearfix">
+				<div class="course-item-left">
+					<a href="{% url 'org:orgdesc' courseorg.id %}" target="_blank">
+					<img src="{{ MEDIA_URL }}{{ courseorg.image }}" width="210" height="120">
+					</a>				
+				</div>
+				<div class="course-item-right">
+					<div class="course-item-title">
+						<span class="type">[机构]</span>
+						<a href="{% url 'org:orgdesc' courseorg.id %}" target="_blank"><span class="highlight">{{ courseorg.name }}</a>
+					</div>
+					
+					<div class="tag">
+						<strong>{{ courseorg.address }}</strong>
+					</div>
+					
+					<p class="content">
+						<span>机构简介：</span>{{ courseorg.desc }}
+					</p>
+				</div>
+			</div>
+			{% endfor %}
+			<p class="href-warp"><a href="http://www.imooc.com/search/course?words=python">更多机构搜索结果</a></p>
+
+			<h2 class="search-title">讲师</h2>
+			{% for teacher in teachers %}
+			<div class="course-item clearfix">
+				<div class="course-item-left">
+					<a href="{% url 'teacher:detail' teacher.id %}" target="_blank">
+					<img src="{{ MEDIA_URL }}{{ teacher.image }}" width="210" height="120">
+					</a>				
+				</div>
+				<div class="course-item-right">
+					<div class="course-item-title">
+						<span class="type">[讲师姓名]</span>
+						<a href="{% url 'teacher:detail' teacher.id %}" target="_blank">{{ teacher.name }}</a>
+					</div>
+
+					<div class="tag">
+						<span>教学特点： </span><strong>{{ teacher.points }}</strong>
+					</div>
+					
+					<p class="content">
+						<span>就职公司： </span>{{ teacher.work_company }}
+					</p>
+				</div>
+			</div>
+			{% endfor %}
+			<p class="href-warp"><a href="http://www.imooc.com/search/course?words=python">更多讲师搜索结果</a></p>
+
+		</div>
+
+	</div>
+
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+{% block end_js %}
+<script src="./python_搜索_慕课网_files/ssologin.js.下载"></script>
+<script type="text/javascript" src="./python_搜索_慕课网_files/sea.js.下载"></script>
+<script type="text/javascript" src="./python_搜索_慕课网_files/sea_config.js.下载"></script>
+<script type="text/javascript">seajs.use("/static/page/search/index");</script>
+<script>
+	OP_CONFIG.$pager = 'index';
+	OP_CONFIG.$words = 'python';
+</script>
+
+<div style="display: none">
+	<script type="text/javascript">
+		var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+		document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff0cfcccd7b1393990c78efdeebff3968' type='text/javascript'%3E%3C/script%3E"));
+		(function (d) {
+		window.bd_cpro_rtid="rHT4P1c";
+		var s = d.createElement("script");s.type = "text/javascript";s.async = true;s.src = location.protocol + "//cpro.baidu.com/cpro/ui/rt.js";
+		var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
+		})(document);
+	</script>
+	<script src="{% static 'js/mooc/h.js' %}" type="text/javascript">
+		
+	</script><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=f0cfcccd7b1393990c78efdeebff3968" target="_blank">
+	<img border="0" src="./python_搜索_慕课网_files/21.gif" width="20" height="20"></a>
+	<script>
+		(function(){
+		    var bp = document.createElement('script');
+		    bp.src = '//push.zhanzhang.baidu.com/push.js';
+		    var s = document.getElementsByTagName("script")[0];
+		    s.parentNode.insertBefore(bp, s);
+		})();
+	</script>
+</div>
+
+<script type="text/javascript" src="{% static 'css/mooc/user.css' %}"></script>
+<div class="moco-usercard-dialog js-moco-usercard-modal"></div>
+{% endblock %}
