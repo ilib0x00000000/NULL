@@ -120,8 +120,8 @@ DATABASES = {
         'ENGINE' : 'django.db.backends.mysql',
         'NAME' : 'course',
         'USER' : 'root',
-        'PASSWORD' : '123456',
-        'HOST' : 'localhost',
+        'PASSWORD' : '',
+        'HOST' : '',
     },
 }
 
@@ -173,19 +173,19 @@ STATICFILES_DIRS = [
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.qq.com'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = '965838596@qq.com'
+EMAIL_HOST_USER = ''
 EMAIL_USE_SSL = False
-EMAIL_HOST_PASSWORD = 'eqzbhatfdufbbgba'
+EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = True
 EMAIL_FROM = '965838596@qq.com'
 
 # 新浪邮箱设置
 # EMAIL_HOST = 'smtp.sina.cn'
 # EMAIL_PORT = 25
-# EMAIL_HOST_USER = '15829208975@sina.cn'
-# EMAIL_HOST_PASSWORD = 'zyh15829208975'
+# EMAIL_HOST_USER = '@sina.cn'
+# EMAIL_HOST_PASSWORD = ''
 # EMAIL_USE_TLS = False
-# EMAIL_FROM = '15829208975@sina.cn'
+# EMAIL_FROM = '@sina.cn'
 
 # 文件上传配置
 MEDIA_URL = '/media/'
